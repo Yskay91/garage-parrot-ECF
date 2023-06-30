@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MessageRepository;
+use App\Repository\MessagesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MessageRepository::class)]
-class Message
+#[ORM\Entity(repositoryClass: MessagesRepository::class)]
+class Messages
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
