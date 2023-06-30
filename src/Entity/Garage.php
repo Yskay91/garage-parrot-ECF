@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GarageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GarageRepository::class)]
 class Garage
@@ -14,18 +15,27 @@ class Garage
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 5, max: 255)]
+    #[Assert\NotBlank()]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\Length(min: 3, max: 10)]
+    #[Assert\NotBlank()]
     private ?string $zipCode = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 1, max: 255)]
+    #[Assert\NotBlank()]
     private ?string $city = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 10, max: 100)]
     private ?string $phone = null;
 
     public function getId(): ?int

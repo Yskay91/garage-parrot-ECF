@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
@@ -15,25 +16,41 @@ class Message
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $nameCustomer = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $firstNameCustomer = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email()]
+    #[Assert\NotBlank]
     private ?string $email = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank()]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\NotBlank()]
     private ?string $subject = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $message = null;
 
     #[ORM\Column]
+    #[Assert\DateTime]
     private ?\DateTimeImmutable $created_at = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

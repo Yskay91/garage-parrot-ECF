@@ -6,6 +6,7 @@ use App\Repository\CarsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CarsRepository::class)]
 class Cars
@@ -16,24 +17,39 @@ class Cars
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $brand = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $model = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive()]
     private ?float $price = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive()]
     private ?int $kilometre = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
+    #[Assert\Length(exactly: 4)]
+    #[Assert\NotBlank]
+    #[Assert\LessThanOrEqual('date(Y)')]
     private ?int $year = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 10)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 4, max: 10)]
     private ?string $reference = null;
 
     #[ORM\Column]
+    #[Assert\DateTime]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'cars')]
@@ -46,10 +62,12 @@ class Cars
     #[ORM\OneToMany(mappedBy: 'car', targetEntity: Features::class, orphanRemoval: true)]
     private Collection $features;
 
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->features = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

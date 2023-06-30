@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FeaturesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FeaturesRepository::class)]
 class Features
@@ -14,9 +15,13 @@ class Features
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $value = null;
 
     #[ORM\ManyToOne(inversedBy: 'features')]

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReviewsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReviewsRepository::class)]
 class Reviews
@@ -15,22 +16,32 @@ class Reviews
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 2, max: 100)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $comment = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
     private ?int $note = null;
 
     #[ORM\Column]
     private ?bool $is_approved = null;
 
     #[ORM\Column]
+    #[Assert\DateTime]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {

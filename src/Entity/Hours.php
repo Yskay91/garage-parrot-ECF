@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\HoursRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: HoursRepository::class)]
 class Hours
@@ -15,18 +16,24 @@ class Hours
     private ?int $id = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\Length(min: 5, max: 10)]
+    #[Assert\NotBlank()]
     private ?string $dayWeek = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\Time]
     private ?\DateTimeInterface $morning_open_hours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\Time]
     private ?\DateTimeInterface $morning_close_hours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\Time]
     private ?\DateTimeInterface $afternoon_open_hours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\Time]
     private ?\DateTimeInterface $afternoon_close_hours = null;
 
     #[ORM\Column]

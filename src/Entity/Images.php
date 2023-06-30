@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
 class Images
@@ -14,6 +15,8 @@ class Images
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
