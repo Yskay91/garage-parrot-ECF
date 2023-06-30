@@ -1,0 +1,50 @@
+.background {
+  background-image: url("../images/bg-car.jpg");
+  /* margin-right: -75px;
+  margin-left: -75px;*/
+  margin-top: -48px; 
+  /*border-radius: 0px 0px 35px 35px;*/
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 30%;
+}
+
+.titreAccueil {
+  color: #edf2f4;
+}
+
+.titrePages {
+  color: #2b2d42;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  background-color: #edf2f4;
+}
+
+.bgTable {
+  background-color: #edf2f4;
+}
+
+.imageModal {
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 130px;
+}
+
+.navbar-nav {
+  margin-left: auto; 
+}
+
+.annonce{
+  margin-bottom: 25px;
+}
+
+
+.navbar{
+  border-bottom: 1px solid #D90429;
+}
+
