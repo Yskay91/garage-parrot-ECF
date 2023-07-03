@@ -21,19 +21,15 @@ class Hours
     private ?string $dayWeek = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Assert\Time]
     private ?\DateTimeInterface $morning_open_hours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Assert\Time]
     private ?\DateTimeInterface $morning_close_hours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Assert\Time]
     private ?\DateTimeInterface $afternoon_open_hours = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Assert\Time]
     private ?\DateTimeInterface $afternoon_close_hours = null;
 
     #[ORM\Column]

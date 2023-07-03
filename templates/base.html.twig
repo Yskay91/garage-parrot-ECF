@@ -20,10 +20,12 @@
 		{% endblock %}
 	</head>
 	<body>
+	<div class="container">
 		{{ include ('pages/include/menu.php') }}
 
 		{% block body %}{% endblock %}
 
 		{{ include ('pages/include/footer.php') }}
+		</div>
 	</body>
 </html>
