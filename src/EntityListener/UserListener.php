@@ -42,8 +42,5 @@ class UserListener
                 $user->getPlainPassword()
             )
         );
-
-        //permet de s'assurer que rien ne fuite, remet le mot de passe à Null
-        $user->setPlainPassword(null);
     }
 }

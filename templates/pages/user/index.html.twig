@@ -1,20 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Gge Parrot - Voitures d'occasion
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="text-center">
+		<div class="container-fluid py-5">
+			<h1 class="titrePages display-5 fw-bold">Liste des employés</h1>
+			<p class="titrePages fs-4">Il y a actuellement
+				{{ (users|length > 0) ? users.getTotalItemCount : '0' }}
+				utilisateur{{ (users|length > 1) ? 's' : '' }}
+				enregistré{{ (users|length > 1) ? 's' : '' }}</p>
+		</div>
+	</div>
+	<div class="row mb-4">
+		<div class="col-sm-3">
+			<a href="{{ path('security.registration') }}" class="btn btn-primary mb-4">Ajouter un utilisateur</a>
+		</div>
+		<div class="col-sm-4"></div>
+		{% if app.user %}
+			<div class="col-sm-5">
+				Vous êtes connecté en tant que
+				{{ app.user.name ~' '~ app.user.firstName }}
+				<a href="{{ path('security.logout') }}">Se déconnecter</a>
+			</div>
+		{% endif %}
+	</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/jessica/ECF/garage-parrot/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/jessica/ECF/garage-parrot/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{# Message de succès lors de l'ajout, de la modification ou suppression d'un utilisateur #}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success mt-4">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col">
+			{% if users|length > 0 %}
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Prénom</th>
+							<th scope="col">Email</th>
+							<th scope="col">Rôle</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td scope="row">{{user.name}}</td>
+								<td scope="row">{{user.firstName}}</td>
+								<td scope="row">{{user.email}}</td>
+								<td scope="row">
+									{% for role in user.roles %}
+										{% if role is same as("ROLE_ADMIN") %}
+											Administrateur<br>
+										{% elseif role is same as("ROLE_EMPLOYE") %}
+											Employé
+										{% endif %}
+									{% endfor %}
+								</td>
+								<td scope="row">
+									<a class="btn btn-outline-info btn-sm" href="{{ path('user.edit', { id: user.id }) }}">Modifier</a>
+									<a class="btn btn-outline-danger btn-sm" href="{{ path('user.delete', { id: user.id }) }}">Supprimer</a>
+								</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+				</table>
+				{# display navigation #}
+				<div class="navigation mt-4">
+					{{ knp_pagination_render(users) }}
+				</div>
+			{% else %}
+				<p>Il n'a pas d'utilisateur enregistré</p>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

@@ -6,12 +6,10 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -23,24 +21,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 100)]
     #[Assert\Length(min: 2, max: 100)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank]
     private ?string $name = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\Length(min: 2, max: 100)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Email()]
-    #[Assert\Unique]
+    #[Assert\Email]
     #[Assert\NotBlank]
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
 
-    private ?string $plainPassword = null;
+    private string $plainPassword = 'password';
     /**
      * @var string The hashed password
      */
@@ -116,8 +113,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_EMPLOYE
+        $roles[] = 'ROLE_EMPLOYE';
 
         return array_unique($roles);
     }
@@ -129,12 +126,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPlainPassword(): ?string
+    public function getPlainPassword(): string
     {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(?string $plainPassword): self
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
 

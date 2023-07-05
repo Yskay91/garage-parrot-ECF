@@ -10,14 +10,14 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="">Accueil</a>
+          <a class="nav-link" href="{{ path('home.index') }}">Accueil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="">Occasions</a>
         </li>
         {% if app.user %}
           <li class="nav-item">
-            <a class="nav-link" href="">Utilisateur</a>
+            <a class="nav-link" href="{{ path('user.index') }}">Utilisateur</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="">Horaires</a>

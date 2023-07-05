@@ -1,29 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gge Parrot - Connexion
+{% block title %}Gge Parrot - Inscription
 {% endblock %}
 
 {% block body %}
 	<div class="text-center">
 		<div class="container-fluid py-5">
-			<h1 class="titrePages display-5 fw-bold">Connexion</h1>
+			<h1 class="titrePages display-5 fw-bold">Inscription</h1>
 			<p class="titrePages fs-4"></p>
 		</div>
 	</div>
-	{# Message de succès lors de l'ajout d'un horaire #}
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-success mt-4">
-			{{ message }}
-		</div>
-	{% endfor %}
-	<form action="{{ path('security.login') }}" method="post" name="login" class="col-md-5">
+
+        {{form(form)}}
+	{# <form action="{{ path('security.registration') }}" method="post" class="col-md-5">
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 		{% endif %}
-
 		<div class="form-group mt-4">
-			<label for="username" class="form-label mt-4">Adresse email</label>
-			<input type="email" class="form-control" id="username" name="_username" placeholder="exemple@symrecipe.fr" value="{{ last_username }}">
+			<label for="email">Email</label>
+			<input type="email" value="{{ last_username }}" name="_email" id="email" class="form-control" autocomplete="email" required>
 		</div>
 		<div class="form-group mt-4">
 			<label for="password">Mot de passe</label>
@@ -33,6 +28,6 @@
 		<button class="btn btn-primary mt-4" type="submit">
 			Connexion
 		</button>
-	</form>
+	</form> #}
 
 {% endblock %}
