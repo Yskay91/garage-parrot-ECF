@@ -12,6 +12,11 @@
 
 	<div class="row">
 		<div class="col-sm-12 col-md-6">
+			{% for message in app.flashes('warning') %}
+				<div class="alert alert-warning mt-4">
+					{{ message }}
+				</div>
+			{% endfor %}
 			{{ form_start(form) }}
 			<div class="form-error">
 				{{ form_errors(form) }}
@@ -33,18 +38,18 @@
 					{{ form_widget(form.email) }}
 					<div class="form-errors">{{ form_errors(form.email) }}</div>
 				</div>
-				{# <div class="form-group">
-					{{ form_label(form.password) }}
-					{{ form_widget(form.password) }}
-					<div class="form-errors">{{ form_errors(form.password) }}</div>
-				</div> #}
-				{# <div class="form-group">
-					{{ form_label(form.roles) }}
-					{{ form_widget(form.roles) }}
-					<div class="form-errors">{{ form_errors(form.roles) }}</div>
-				</div> #}
 				<div class="form-group">
-					{{ form_row(form.submit) }}
+					<label class="form-label mt-4" for="plainPassword">Indiqué votre mot de passe pour modifier les données</label>
+					{{ form_widget(form.plainPassword) }}
+					<div class="form-errors">{{ form_errors(form.plainPassword) }}</div>
+				</div>
+				{# <div class="form-group">
+									{{ form_label(form.roles) }}
+									{{ form_widget(form.roles) }}
+									<div class="form-errors">{{ form_errors(form.roles) }}</div>
+								</div> #}
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary mt-4">Modifier</button>
 				</div>
 			</div>
 			{{ form_end(form) }}
