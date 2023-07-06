@@ -19,12 +19,6 @@ class UserListener
         $this->encodePassword($user);
     }
 
-    // *********************** Pour l'instant ne fonctionne pas ***********************
-    // public function preUpdate(User $user)
-    // {
-    //     $this->encodePassword($user);
-    // }
-
     /**
      * Encode password based on plainPassword
      *
