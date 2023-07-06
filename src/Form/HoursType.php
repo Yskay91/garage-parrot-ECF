@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class HoursType extends AbstractType
@@ -65,14 +64,7 @@ class HoursType extends AbstractType
                 'class' => 'form-check-label mt-4',
                 'value' => 'Oui'
             ]
-        ])
-
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary mt-4'
-                ],
-                'label' => 'Ajouter'
-            ]);
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

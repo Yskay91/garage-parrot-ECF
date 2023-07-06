@@ -16,18 +16,18 @@
           <a class="nav-link" href="{{ path('car.index') }}">Occasions</a>
         </li>
         {% if app.user %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('user.index') }}">Liste des employés</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('services.index') }}">Liste des services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Horaires</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('messages.index') }}">Liste des messages</a>
-          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('user.index') }}">Liste des employés</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('services.index') }}">Liste des services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('messages.index') }}">Liste des messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('hours.index') }}">Horaires</a>
+        </li>
         {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{{ path('messages.new') }}">Contact</a>
