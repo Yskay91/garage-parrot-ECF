@@ -13,18 +13,24 @@
           <a class="nav-link" href="{{ path('home.index') }}">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Occasions</a>
+          <a class="nav-link" href="{{ path('car.index') }}">Occasions</a>
         </li>
         {% if app.user %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('user.index') }}">Utilisateur</a>
+            <a class="nav-link" href="{{ path('user.index') }}">Liste des employés</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('services.index') }}">Liste des services</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="">Horaires</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('messages.index') }}">Liste des messages</a>
+          </li>
         {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="">Contact</a>
+          <a class="nav-link" href="{{ path('messages.new') }}">Contact</a>
         </li>
       </ul>
     </div>
