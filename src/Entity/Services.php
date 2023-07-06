@@ -33,6 +33,9 @@ class Services
     #[Assert\NotNull()]
     private ?float $price = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,6 +85,18 @@ class Services
     public function setPrice(float $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
