@@ -2,20 +2,20 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Messages;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UsersType extends AbstractType
+class MessagesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('nameCustomer', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
@@ -29,8 +29,7 @@ class UsersType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-
-            ->add('firstName', TextType::class, [
+            ->add('firstNameCustomer', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
@@ -44,7 +43,6 @@ class UsersType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-
             ->add('email', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -56,26 +54,58 @@ class UsersType extends AbstractType
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\NotBlank(),
                     new Assert\Email()
                 ]
             ])
-            
-            ->add('plainPassword', PasswordType::class, [
+            ->add('telephone', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '100'
                 ],
-                'label' => 'Mot de passe',
+                'label' => 'Telephone',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank()
                 ]
-            ]);
+            ])
+            ->add('subject', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '100'
+                ],
+                'label' => 'Sujet',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank()
+                ]
+            ])
+            ->add('message', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '100'
+                ],
+                'label' => 'Message',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank()
+                ]
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Messages::class,
         ]);
     }
 }

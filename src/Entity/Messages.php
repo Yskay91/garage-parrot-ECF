@@ -44,7 +44,6 @@ class Messages
     private ?string $message = null;
 
     #[ORM\Column]
-    #[Assert\DateTime]
     private ?\DateTimeImmutable $created_at = null;
 
     public function __construct()

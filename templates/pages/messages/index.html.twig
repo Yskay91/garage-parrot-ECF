@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MessagesController!{% endblock %}
+{% block title %}Gge Parrot - Horaire d'ouverture
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="text-center">
+		<div class="container-fluid py-5">
+			<h1 class="titrePages display-5 fw-bold">Liste des messages reçu</h1>
+			<p class="titrePages fs-4">Il y a actuellement
+				{{ (messages|length > 0) ? messages.getTotalItemCount : '0' }}
+				message{{ (messages|length > 1) ? 's' : '' }}
+				reçu{{ (messages|length > 1) ? 's' : '' }}</p>
+		</div>
+	</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/jessica/ECF/garage-parrot/src/Controller/MessagesController.php'|file_link(0) }}">src/Controller/MessagesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/jessica/ECF/garage-parrot/templates/messages/index.html.twig'|file_link(0) }}">templates/messages/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success mt-4">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col-sm-12">
+			{% if messages|length > 0 %}
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Nom, prénom</th>
+							<th scope="col">Email</th>
+							<th scope="col">Téléphone</th>
+							<th scope="col">Sujet</th>
+							<th scope="col">Message</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for message in messages %}
+							<tr>
+								<td scope="row">{{message.nameCustomer }} {{ message.firstNameCustomer }}</td>
+								<td>{{ message.email }}</td>
+								<td>{{ message.telephone }}</td>
+								<td>{{ message.subject }}</td>
+								<td>{{ message.message }}</td>
+								<td>
+									<a class="btn btn-outline-danger btn-sm" href="{{ path('messages.delete', { id: message.id }) }}">Supprimer</a>
+								</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+				</table>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

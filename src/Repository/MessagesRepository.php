@@ -18,7 +18,7 @@ class MessagesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Message::class);
+        parent::__construct($registry, Messages::class);
     }
 
     public function save(Messages $entity, bool $flush = false): void

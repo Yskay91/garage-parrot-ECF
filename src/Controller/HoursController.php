@@ -27,6 +27,7 @@ class HoursController extends AbstractController
             'hours' => $hours
         ]);
     }
+    
     /**
      * Création du formulaire d'ajout
      *
