@@ -55,7 +55,6 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $hasher
     ): Response {
 
-
         if (!$this->getUser()) {
             return $this->redirectToRoute('security.login');
         }
@@ -121,6 +120,10 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $hasher,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
 
         $form = $this->createForm(EditPasswordType::class);
 
