@@ -1,20 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ImagesController!{% endblock %}
+{% block title %}Gge Parrot - Image
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="text-center">
+		<div class="container-fluid py-5">
+			<h1 class="titrePages display-5 fw-bold">Liste des images</h1>
+			<p class="titrePages fs-4"></p>
+		</div>
+	</div>
+	<div class="row mb-4">
+		<div class="col-sm-3">
+			<a href="{{ path('images.new') }}" class="btn btn-primary mb-4">Ajouter une image</a>
+		</div>
+		<div class="col-sm-4"></div>
+	</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	{# Message de succès lors de l'ajout, de la modification ou suppression d'une image #}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success mt-4">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="row">
+		<div class="col">
+			{% if images|length > 0 %}
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Fichier</th>
+							<th scope="col">Ajoutée le</th>
+							<th scope="col">Modifiée le</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for image in images %}
+							<tr>
+								<td scope="row">{{image.imageName}}</td>
+								<td scope="row">{{image.imageFile}}</td>
+								<td scope="row">{{image.createdAt}}</td>
+								<td scope="row">{{ image.updatedAt }}</td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/jessica/ECF/garage-parrot/src/Controller/ImagesController.php'|file_link(0) }}">src/Controller/ImagesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/jessica/ECF/garage-parrot/templates/images/index.html.twig'|file_link(0) }}">templates/images/index.html.twig</a></code></li>
-    </ul>
-</div>
+								<td scope="row">
+									<a class="btn btn-outline-info btn-sm" href="{{ path('images.edit', { id: image.id }) }}">Modifier</a>
+									<a class="btn btn-outline-danger btn-sm" href="{{ path('images.delete', { id: image.id }) }}">Supprimer</a>
+								</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+				</table>
+				{# display navigation #}
+				<div class="navigation mt-4">
+					{{ knp_pagination_render(images) }}
+				</div>
+			{% else %}
+				<p>Il n'a pas d'image enregistrée</p>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

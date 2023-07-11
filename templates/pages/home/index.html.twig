@@ -22,36 +22,27 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-12 col-md-6 col-lg-4 text-center">
-						<div class="card" style="width: 18rem;">
-							<img src="images/reparation_carrosserie.jpg" class="card-img-top" alt="Réparation de la carrosserie">
-							<div class="card-body">
-								<h5 class="card-title">Réparation de la carrosserie</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="#" class="btn btn-primary">Go somewhere</a>
+					{% for service in services %}
+
+						{% if (service.isIsActif == 1) %}
+							<div class="col-sm-12 col-md-6 col-lg-4 text-center">
+								<div class="card">
+									<div class="card-header">
+										{{service.category}}
+									</div>
+									<div class="card-body">
+										<h5 class="card-title">{{service.name}}</h5><br>
+										<p class="card-text">{{service.description}}</p>
+									</div>
+									<div class="card-footer text-muted">
+										Tarif : à partir de
+										{{service.price}}
+										€
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-6 col-lg-4 text-center">
-						<div class="card" style="width: 18rem;">
-							<img src="images/reparation_moteur.jpg" class="card-img-top" alt="Réparation mécanique">
-							<div class="card-body">
-								<h5 class="card-title">Réparation mécanique</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="#" class="btn btn-primary">Go somewhere</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-6 col-lg-4 text-center">
-						<div class="card" style="width: 18rem;">
-							<img src="images/entretien_regulier.jpg" class="card-img-top" alt="Entretien régulier">
-							<div class="card-body">
-								<h5 class="card-title">Entretien régulier</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-								<a href="#" class="btn btn-primary">Go somewhere</a>
-							</div>
-						</div>
-					</div>
+						{% endif %}
+					{% endfor %}
 				</div>
 			</div>
 		</main>

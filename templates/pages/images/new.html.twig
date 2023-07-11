@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gge Parrot - Ajouter une image
+{% endblock %}
+
+{% block body %}
+	<div class="text-center">
+		<div class="container-fluid py-5">
+			<h1 class="titrePages display-5 fw-bold">Ajouter une image</h1>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-6">
+				<form method="post" enctype="multipart/form-data">
+					{{ form_start(form) }}
+					<div class="form-error">
+						{{ form_errors(form) }}
+					</div>
+
+					<div class="row">
+						<div class="form-group">
+							{{ form_label(form.imageName) }}
+							{{ form_widget(form.imageName) }}
+							<div class="form-errors">{{ form_errors(form.imageName) }}</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(form.imageFile) }}
+							{{ form_widget(form.imageFile) }}
+							<div class="form-errors">{{ form_errors(form.imageFile) }}</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary mt-4">Ajouter</button>
+						</div>
+					</div>
+					{{ form_end(form) }}
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
