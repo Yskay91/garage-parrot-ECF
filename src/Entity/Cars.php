@@ -43,30 +43,23 @@ class Cars
     #[Assert\LessThanOrEqual('date(Y)')]
     private ?int $year = null;
 
-    #[ORM\Column(length: 10)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 4, max: 10)]
-    private ?string $reference = null;
-
     #[ORM\Column]
-    #[Assert\DateTime]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'cars')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class)]
+    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, cascade: ['persist', 'remove'])]
     private Collection $images;
 
-    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Features::class, orphanRemoval: true)]
-    private Collection $features;
+    #[ORM\Column(length: 255)]
+    private ?string $features = null;
 
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->features = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
     }
 
@@ -135,18 +128,6 @@ class Cars
         return $this;
     }
 
-    public function getReference(): ?string
-    {
-        return $this->reference;
-    }
-
-    public function setReference(string $reference): static
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
@@ -201,33 +182,19 @@ class Cars
         return $this;
     }
 
-    /**
-     * @return Collection<int, Features>
-     */
-    public function getFeatures(): Collection
+    public function getFeatures(): ?string
     {
         return $this->features;
     }
 
-    public function addFeature(Features $feature): static
+    public function setFeatures(string $features): static
     {
-        if (!$this->features->contains($feature)) {
-            $this->features->add($feature);
-            $feature->setCar($this);
-        }
+        $this->features = $features;
 
         return $this;
     }
 
-    public function removeFeature(Features $feature): static
-    {
-        if ($this->features->removeElement($feature)) {
-            // set the owning side to null (unless already changed)
-            if ($feature->getCar() === $this) {
-                $feature->setCar(null);
-            }
-        }
-
-        return $this;
+    public function getFullname(): ?string {
+        return $this->brand . ' ' . $this->model . ' ' . $this->year;
     }
 }

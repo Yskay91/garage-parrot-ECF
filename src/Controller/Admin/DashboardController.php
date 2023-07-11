@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Cars;
 use App\Entity\Garage;
+use App\Entity\Images;
 use App\Entity\Messages;
 use App\Entity\Reviews;
 use App\Entity\Services;
