@@ -26,6 +26,7 @@ class Reviews
 
     #[ORM\Column]
     #[Assert\Positive()]
+    #[Assert\LessThan(6)]
     private ?int $note = null;
 
     #[ORM\Column]
@@ -37,6 +38,9 @@ class Reviews
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'note')]
+    private ?Garage $garage = null;
 
     public function __construct()
     {
@@ -116,6 +120,18 @@ class Reviews
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGarage(): ?Garage
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(?Garage $garage): static
+    {
+        $this->garage = $garage;
 
         return $this;
     }

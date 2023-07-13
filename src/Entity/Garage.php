@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GarageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -42,6 +44,16 @@ class Garage
     #[Assert\Length(min: 10, max: 100)]
     #[Assert\Email]
     private ?string $mail = null;
+
+    private ?float $average = null;
+
+    #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Reviews::class, orphanRemoval: true)]
+    private Collection $note;
+
+    public function __construct()
+    {
+        $this->note = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,6 +128,42 @@ class Garage
     public function setMail(?string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getAverage(): ?float
+    {
+        $review = $this->review;
+        return $this->average;
+    }
+
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getNote(): Collection
+    {
+        return $this->note;
+    }
+
+    public function addNote(Reviews $note): static
+    {
+        if (!$this->note->contains($note)) {
+            $this->note->add($note);
+            $note->setGarage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Reviews $note): static
+    {
+        if ($this->note->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getGarage() === $this) {
+                $note->setGarage(null);
+            }
+        }
 
         return $this;
     }
