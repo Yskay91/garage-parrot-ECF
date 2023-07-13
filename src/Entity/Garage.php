@@ -47,12 +47,12 @@ class Garage
 
     private ?float $average = null;
 
-    #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Reviews::class, orphanRemoval: true)]
-    private Collection $note;
+    #[ORM\OneToMany(mappedBy: 'garage', targetEntity: Reviews::class, orphanRemoval: false)]
+    private Collection $notes;
 
     public function __construct()
     {
-        $this->note = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,39 +132,53 @@ class Garage
         return $this;
     }
 
-    public function getAverage(): ?float
-    {
-        $review = $this->review;
-        return $this->average;
-    }
-
     /**
      * @return Collection<int, Reviews>
      */
-    public function getNote(): Collection
+    public function getNotes(): Collection
     {
-        return $this->note;
+        return $this->notes;
     }
 
-    public function addNote(Reviews $note): static
+    public function addNotes(Reviews $notes): static
     {
-        if (!$this->note->contains($note)) {
-            $this->note->add($note);
-            $note->setGarage($this);
+        if (!$this->notes->contains($notes)) {
+            $this->notes->add($notes);
+            $notes->setGarage($this);
         }
 
         return $this;
     }
 
-    public function removeNote(Reviews $note): static
+    public function removeNotes(Reviews $notes): static
     {
-        if ($this->note->removeElement($note)) {
+        if ($this->notes->removeElement($notes)) {
             // set the owning side to null (unless already changed)
-            if ($note->getGarage() === $this) {
-                $note->setGarage(null);
+            if ($notes->getGarage() === $this) {
+                $notes->setGarage(null);
             }
         }
 
         return $this;
+    }
+
+    public function getAverage(): ?float
+    {
+        $notes = $this->notes;
+
+        if($notes->toArray()=== null) {
+            $this->average = null;
+            return $this->average;
+        }
+
+        $total = 0;
+
+        foreach ($notes as $note) {
+            $total += $note->getNotes();
+        }
+
+        $this->average = $total / count($notes);
+
+        return $this->average;
     }
 }

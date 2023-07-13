@@ -11,22 +11,24 @@
 			<p class="titrePages fs-4"></p>
 		</div>
 	</div>
-
 	<div class="row">
-		{% for garage in garages %}
-
-			<div class="col-sm-12 col-md-6 col-lg-4 text-center">
+		{% for gge in garage %}
+			<div class="col-sm-12 text-center">
+				<h5>Note moyenne laissée par nos clients :
+					{{gge.average}}/5</h5>
+			</div>
+			<div class="col-sm-12 text-center mt-5">
 				<address>
-					<strong>{{garage.name}}</strong><br/>
-					{{garage.adresse}}<br/>
-					{{garage.zipCode}}
-					{{garage.city}}<br/>
+					<strong>{{gge.name}}</strong><br/>
+					{{gge.adresse}}<br/>
+					{{gge.zipCode}}
+					{{gge.city}}<br/>
 				</address>
 
 				<address>
 					<strong>Mail et téléphone</strong><br/>
-					<a href="mailto:#">{{garage.mail}}</a><br/>
-					{{garage.phone}}
+					<a href="mailto:#">{{gge.mail}}</a><br/>
+					{{gge.phone}}
 				</address>
 			</div>
 		{% endfor %}

@@ -44,8 +44,7 @@ class ReviewsController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
-    #[Route('/reviews/ajouter', name: 'reviews.new', methods: ['GET', 'POST'])]
+    #[Route('/avis/ajouter', name: 'reviews.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
@@ -67,7 +66,7 @@ class ReviewsController extends AbstractController
                 'L\'avis a bien été ajouté'
             );
 
-            return $this->redirectToRoute('reviews.index');
+            return $this->redirectToRoute('home.index');
         }
 
         return $this->render(
@@ -123,7 +122,7 @@ class ReviewsController extends AbstractController
      * @return Response
      */
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/reviews/supprimer/{id}', name: 'reviews.delete', methods: ['GET'])]
+    #[Route('/avis/supprimer/{id}', name: 'reviews.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
         Reviews $reviews
@@ -133,7 +132,7 @@ class ReviewsController extends AbstractController
 
         $this->addFlash(
             'success',
-            'La note a bien été supprimée'
+            'L\'avis a bien été supprimé'
         );
 
         return $this->redirectToRoute('reviews.index');

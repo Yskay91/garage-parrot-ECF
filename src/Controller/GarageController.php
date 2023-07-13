@@ -19,13 +19,10 @@ class GarageController extends AbstractController
     #[Route('/garage', name: 'garage.index')]
     public function index(GarageRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        $garages = $paginator->paginate(
-            $repository->findAll(),
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit par page*/
-        );
+        $garage = $repository->findAll();
+
         return $this->render('pages/garage/index.html.twig', [
-            'garages' => $garages
+            'garage' => $garage
         ]);
     }
 }

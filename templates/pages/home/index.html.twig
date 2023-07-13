@@ -21,7 +21,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row mb-5">
 					{% for service in services %}
 
 						{% if (service.isIsActif == 1) %}
@@ -39,6 +39,65 @@
 										{{service.price}}
 										€
 									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<!-- Avis -->
+				<div class="row mt-4 mb-5">
+					<div class="col-sm-12 text-center">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 text-center">
+								<h3 class="text-center text-bold">Les avis laissés par nos clients</h3>
+								<div class="col-md-6 offset-md-3">
+									<hr><br>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 text-center mb-5">
+						<a class="btn btn-outline-info btn-sm" href="{{ path('reviews.new') }}">Laisser un avis</a>
+					</div>
+					{% for review in reviews %}
+
+						{% if (review.isIsApproved == 1) %}
+							<div class="col-sm-12 col-md-6 col-lg-4 text-center">
+								<div class="card">
+									<div class="card-header">
+										{{review.name}}<i class="bi bi-star-fill"></i>
+									</div>
+									<div class="card-body">
+										<p class="card-text">{{review.comment}}</p>
+									</div>
+									{% if (review.notes >= 4) %}
+										<div class="card-footer bg-success">
+											{% for i in 1..review.notes %}
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewbox="0 0 16 16">
+													<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+												</svg>
+											{% endfor %}
+										</div>
+										
+										{% elseif review.notes <= 3 and review.notes > 2 %}
+										<div class="card-footer bg-warning">
+											{% for i in 1..review.notes %}
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewbox="0 0 16 16">
+													<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+												</svg>
+											{% endfor %}
+										</div>
+										{% else %}
+										<div class="card-footer bg-danger">
+											{% for i in 1..review.notes %}
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewbox="0 0 16 16">
+													<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+												</svg>
+											{% endfor %}
+										</div>
+										
+									{% endif %}
+
 								</div>
 							</div>
 						{% endif %}

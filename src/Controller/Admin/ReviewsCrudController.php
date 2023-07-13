@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ReviewsCrudController extends AbstractCrudController
@@ -32,8 +33,8 @@ class ReviewsCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('name'),
-            TextField::new('comment'),
-            IntegerField::new('note'),
+            TextareaField::new('comment'),
+            IntegerField::new('notes'),
             BooleanField::new('is_approved')
         ];
     }

@@ -53,9 +53,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="modal{{ car.id }}Label">{{ car.brand }}
-									{{ car.model }}</h5>
-
+								<h5 class="modal-title" id="modal{{ car.id }}Label">{{ car.brand }} {{ car.model }}</h5>
 							</div>
 							<div class="modal-body">
 								<form action="{{ path('messages.modal') }}" method="post">
@@ -71,7 +69,7 @@
 										<label for="message-text-{{ car.id }}" class="col-form-label">Message</label>
 										<textarea class="form-control" id="message-text-{{ car.id }}"></textarea>
 									</div>
-								<button type="submit" class="btn btn-primary mt-4">Send message</button>
+									<button type="submit" class="btn btn-primary mt-4">Send message</button>
 								</form>
 							</div>
 							<div class="modal-footer">

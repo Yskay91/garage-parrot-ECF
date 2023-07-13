@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Cars;
+use App\Form\UsersType;
 use App\Form\ImagesType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -35,16 +36,17 @@ class CarsCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('brand'),
-            TextField::new('features'),
             TextField::new('model'),
-            MoneyField::new('price')->setCurrency('EUR'),
+            TextField::new('features'),
             IntegerField::new('kilometre'),
             IntegerField::new('year'),
+            IntegerField::new('price'),
             DateTimeField::new('created_at')
                 ->hideOnForm(),
             CollectionField::new('images')
                 ->setEntryType(ImagesType::class)
-    
         ];
     }
+
+
 }

@@ -34,6 +34,7 @@ class GarageCrudController extends AbstractCrudController
             IntegerField::new('zipCode'),
             TextField::new('city'),
             TextField::new('phone'),
+            TextField::new('mail'),
         ];
     }
 }

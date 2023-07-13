@@ -27,19 +27,18 @@ class Reviews
     #[ORM\Column]
     #[Assert\Positive()]
     #[Assert\LessThan(6)]
-    private ?int $note = null;
+    private ?int $notes = null;
 
     #[ORM\Column]
-    private ?bool $is_approved = null;
+    private ?bool $is_approved = false;
 
     #[ORM\Column]
-    #[Assert\DateTime]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'note')]
+    #[ORM\ManyToOne(inversedBy: 'notes')]
     private ?Garage $garage = null;
 
     public function __construct()
@@ -76,14 +75,14 @@ class Reviews
         return $this;
     }
 
-    public function getNote(): ?int
+    public function getNotes(): ?int
     {
-        return $this->note;
+        return $this->notes;
     }
 
-    public function setNote(int $note): static
+    public function setNotes(int $notes): static
     {
-        $this->note = $note;
+        $this->notes = $notes;
 
         return $this;
     }
@@ -127,6 +126,7 @@ class Reviews
     public function getGarage(): ?Garage
     {
         return $this->garage;
+        $garage = 1;
     }
 
     public function setGarage(?Garage $garage): static

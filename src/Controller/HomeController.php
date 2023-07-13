@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Reviews;
+use App\Form\ReviewsType;
+use App\Repository\GarageRepository;
+use App\Repository\ReviewsRepository;
 use App\Repository\ServicesRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +24,17 @@ class HomeController extends AbstractController
     // }
 
     /**
-     * Cette fonction affiche les services
+     * Undocumented function
      *
      * @param ServicesRepository $repository
+     * @param GarageRepository $repositoryGge
+     * @param ReviewsRepository $repositoryReviews
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @return Response
      */
     #[Route('/', name: 'home.index', methods: ['GET'])]
-    public function listeServices(ServicesRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function listeServices(ServicesRepository $repository, GarageRepository $repositoryGge, ReviewsRepository $repositoryReviews, PaginatorInterface $paginator, Request $request): Response
     {
         $services = $paginator->paginate(
             $repository->findAll(),
@@ -36,8 +42,11 @@ class HomeController extends AbstractController
             5 /*limit par page*/
         );
 
+        $reviews = $repositoryReviews->findAll();
+
         return $this->render('pages/home/index.html.twig', [
-            'services' => $services
+            'services' => $services,
+            'reviews' => $reviews
         ]);
     }
 }
