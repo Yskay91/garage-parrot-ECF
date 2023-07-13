@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Cars;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ImagesRepository;
 use Symfony\Component\HttpFoundation\File\File;
@@ -17,7 +18,7 @@ class Images
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'car_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
@@ -30,7 +31,6 @@ class Images
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Cars $car = null;
 
     public function __construct()
@@ -109,12 +109,17 @@ class Images
         return $this;
     }
 
-    public function getCar(): ?Cars
+    public function __toString(): string
+    {
+        return $this->imageName;
+    }
+
+    public function getCarId(): ?Cars
     {
         return $this->car;
     }
 
-    public function setCar(?Cars $car): static
+    public function setCarId(?Cars $car): static
     {
         $this->car = $car;
 

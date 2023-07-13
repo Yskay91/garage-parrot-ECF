@@ -35,13 +35,13 @@ class CarsType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('features', TextareaType::class, [
+            ->add('model', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
-                    'maxlenght' => '255'
+                    'maxlenght' => '100'
                 ],
-                'label' => 'Caractéristiques',
+                'label' => 'Modèle',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -50,13 +50,13 @@ class CarsType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('model', TextType::class, [
+            ->add('features', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlenght' => '2',
-                    'maxlenght' => '100'
+                    'maxlenght' => '255'
                 ],
-                'label' => 'Modèle',
+                'label' => 'Caractéristiques',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
@@ -105,19 +105,6 @@ class CarsType extends AbstractType
                     new Assert\Length(['min' => 4, 'max' => 4]),
                     new Assert\Positive()
                 ]
-            ])
-            ->add('user', EntityType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'class' => User::class,
-                'choice_label' => 'name',
-                'multiple' => false,
-
-                'label' => 'Utilisateur lié',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
             ])
 
             ->add('submit', SubmitType::class, [

@@ -38,6 +38,11 @@ class Garage
     #[Assert\Length(min: 10, max: 100)]
     private ?string $phone = null;
 
+    #[ORM\Column(length: 100)]
+    #[Assert\Length(min: 10, max: 100)]
+    #[Assert\Email]
+    private ?string $mail = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -99,6 +104,18 @@ class Garage
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(?string $mail): self
+    {
+        $this->mail = $mail;
 
         return $this;
     }

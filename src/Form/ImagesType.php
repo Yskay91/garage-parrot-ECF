@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Cars;
 use App\Entity\Images;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,19 +16,11 @@ class ImagesType extends AbstractType
         $builder
             ->add('imageName')
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Image',
+                'label' => 'Images',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ]
             ])
-            // ->add('car', EntityType::class, [
-            //     'class' => Cars::class,
-            //     'choice_label' => 'fullname',
-            //     'label' => 'Voiture concernée',
-            //     'label_attr' => [
-            //         'class' => 'form-label mt-4'
-            //     ]
-            // ])
             ;
     }
 
