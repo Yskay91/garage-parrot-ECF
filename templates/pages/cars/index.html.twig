@@ -4,88 +4,88 @@
 {% endblock %}
 
 {% block body %}
-<div class="text-center">
-	<div class="container-fluid py-5">
-		<h1 class="titrePages display-5 fw-bold">Voitures en vente</h1>
-		<p class="titrePages fs-4">Nous avons
-			{{ (cars|length > 0) ? cars.getTotalItemCount : '0' }}
-			voiture{{ (cars|length > 1) ? 's' : '' }}
-			d'occasion en stock</p>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-2">
-		<a href="{{ path('car.new') }}" class="btn btn-outline-primary mb-4">Ajouter une annonce</a>
-	</div>
-</div>
-{# Message de succès lors de l'ajout d'une voiture #}
-{% for message in app.flashes('success') %}
-	<div class="alert alert-success mt-4">
-		{{ message }}
-	</div>
-{% endfor %}
-
-{% if cars|length > 0 %}
-	{% for car in cars %}
-		<div class="col-sm-12 col-md-4 text-center annonce">
-			<div class="card">
-
-				{% for image in car.getImages() %}
-					<img src="{{ image.name }}" id="imageVoiture{{car.id}}" class="card-img-top" alt="imageVoiture{{car.id}}">
-				{% endfor %}
-
-				<div class="card-body">
-
-					<h5 class="card-title">{{car.brand}}
-						{{ car.model }}</h5>
-					<p class="card-text">
-						Année :
-						{{ car.year }}<br>
-						Kilomètres :
-						{{ car.kilometre|number_format(0, ',', '\'') }}<br>
-						<b>Prix :
-                        {{ car.price|number_format(0, ',', '\'') }} €</b><br>
-					</p>
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#voiture{{car.id}}">
-						Détails
-					</button>
-					<a class="btn btn-outline-info" href="{{ path('car.edit', { id: car.id }) }}">Modifier</a>
-					<a class="btn btn-outline-danger" href="{{ path('car.delete', { id: car.id }) }}">Supprimer</a>
-				</div>
-			</div>
+	<div class="text-center">
+		<div class="container-fluid py-5">
+			<h1 class="titrePages display-5 fw-bold">Voitures en vente</h1>
+			<p class="titrePages fs-4">Nous avons
+				{{ (cars|length > 0) ? cars.getTotalItemCount : '0' }}
+				voiture{{ (cars|length > 1) ? 's' : '' }}
+				d'occasion en stock</p>
 		</div>
-		<!-- Modal -->
-		<div class="modal fade" id="voiture{{car.id}}" tabindex="-1" aria-labelledby="voiture{{car.id}}" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">{{ car.brand }}
-							{{ car.model }}</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
+	</div>
+	{# Message de succès lors de l'ajout d'une voiture #}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success mt-4">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<div class="row">
+		{% if cars|length > 0 %}
+			{% for car in cars %}
+				<div class="text-center mb-4 col-sm-12 col-md-6">
+					<div class="card">
+						<div class="card-header">
+							{{ car.brand|upper }}
+							{{ car.model|upper }}
+						</div>
 						{% for image in car.getImages() %}
-							<img src="{{ image.name }}" id="imageVoiture{{car.id}}" class="card-img-top" alt="imageVoiture{{car.id}}">
+							<img src="{{ vich_uploader_asset(image, 'imageFile') }}" id="imageVoiture{{ car.id }}" class="card-img-top" alt="imageVoiture{{ car.id }}">
 						{% endfor %}
-						<p>
-							Année :
-							{{ car.year }}<br>
-							Kilomètres :
-							{{ car.kilometre|number_format(0, ',', '\'') }}<br>
-								<b>Prix :
-                        		{{ car.price|number_format(0, ',', '\'') }}€
-						</p>
-					</b><br>
-					Caractéristiques :
-					{{car.features}}<br>
-				</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Envoyer un message</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-			</div>
-		</div>
+						<div class="card-body">
+							<p class="card-text">
+								<b>Année :</b>
+								{{ car.year }}<br>
+								<b>Kilomètres :</b>
+								{{ car.kilometre|number_format(0, ',', '\'') }}<br>
+          <b>Prix :</b> {{ car.price|number_format(0, ',', '\'') }}€<br>
+								<b>Caractéristiques :</b>
+								{{ car.features }}
+							</p>
+							<br>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal{{ car.id }}" data-whatever="{{ car.id }} - {{ car.brand }} {{ car.model }}">Demander plus d'informations</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal -->
+				<div class="modal fade" id="modal{{ car.id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ car.id }}Label" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modal{{ car.id }}Label">{{ car.brand }}
+									{{ car.model }}</h5>
+
+							</div>
+							<div class="modal-body">
+								<form action="{{ path('messages.modal') }}" method="post">
+									<div class="form-group">
+										<label for="recipient-name-{{ car.id }}" class="col-form-label">Sujet</label>
+										<input type="text" class="form-control" id="recipient-name-{{ car.id }}">
+									</div>
+									<div class="form-group">
+										<label for="message-text-{{ car.id }}" class="col-form-label">Message</label>
+										<textarea class="form-control" id="message-text-{{ car.id }}"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="message-text-{{ car.id }}" class="col-form-label">Message</label>
+										<textarea class="form-control" id="message-text-{{ car.id }}"></textarea>
+									</div>
+								<button type="submit" class="btn btn-primary mt-4">Send message</button>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+			{# display navigation #}
+			<div class="navigation d-flex justify-content-center mt-4">{{ knp_pagination_render(cars) }}</div>
+		{% else %}
+			<p class="bold d-flex justify-content-center mt-4">Actuellement nous avons aucune voiture d'occasions disponible à la vente.</p>
+		{% endif %}
 	</div>
-</div>{% endfor %}{# display navigation #}<div class="navigation d-flex justify-content-center mt-4">
-{{ knp_pagination_render(cars) }}</div>{% else %}<p class="bold d-flex justify-content-center mt-4">Actuellement nous avons aucune voiture d'occasions disponible à la vente.</p>{% endif %}{% endblock %}
+{% endblock %}

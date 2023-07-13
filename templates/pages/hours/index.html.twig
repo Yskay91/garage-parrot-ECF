@@ -10,11 +10,6 @@
 			<p class="titrePages fs-4"></p>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-sm-2">
-			<a href="{{ path('hours.new') }}" class="btn btn-primary mb-4">Ajouter un horaire</a>
-		</div>
-	</div>
 	{# Message de succès lors de l'ajout d'un horaire #}
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success mt-4">
