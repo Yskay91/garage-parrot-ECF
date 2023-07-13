@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ServicesController extends AbstractController
 {
@@ -43,6 +44,7 @@ class ServicesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/services/ajouter', name: 'services.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -82,6 +84,7 @@ class ServicesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/services/modifier/{id}', 'services.edit', methods: ['GET', 'POST'])]
     public function edit(
         Services $services,
@@ -119,6 +122,7 @@ class ServicesController extends AbstractController
      * @param Services $services
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/services/supprimer/{id}', name: 'services.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserController extends AbstractController
 {
@@ -24,6 +25,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/liste-employes', name: 'user.index', methods: ['GET'])]
     public function showListeEmploye(UserRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -47,6 +49,7 @@ class UserController extends AbstractController
      * @param UserPasswordHasherInterface $hasher
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/employe/modifier/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
     public function edit(
         User $user,
@@ -90,6 +93,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/employe/supprimer/{id}', name: 'user.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
@@ -113,6 +117,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/employe/modifier-mot-de-passe/{id}', name: 'user.edit.password', methods: ['GET', 'POST'])]
     public function editPassword(
         User $user,

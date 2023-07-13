@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Cars;
 use App\Form\CarsType;
+use App\Entity\Messages;
+use App\Form\MessagesType;
+use App\Repository\MessagesRepository;
 use App\Repository\CarsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -11,10 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CarsController extends AbstractController
 {
-
     /**
      * Retourne la liste des annonces
      *
@@ -24,8 +29,12 @@ class CarsController extends AbstractController
      * @return Response
      */
     #[Route('/annonces', name: 'car.index')]
-    public function index(CarsRepository $repository, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function index(
+        CarsRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request,
+        MailerInterface $mailer
+    ): Response {
         $cars = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -44,12 +53,13 @@ class CarsController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/annonces/ajouter', name: 'car.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-        $car = new Cars; //création d'une nouvelle car 
+        $car = new Cars(); //création d'une nouvelle car
 
         $form = $this->createForm(CarsType::class, $car);
 
@@ -82,6 +92,7 @@ class CarsController extends AbstractController
     /**
      * Modifie une annonce
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('annonces/modifier/{id}', 'car.edit', methods: ['GET', 'POST'])]
     public function edit(
         Cars $car,
@@ -121,6 +132,7 @@ class CarsController extends AbstractController
      * @param Car $car
      * @return Response
      */
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('annonces/supprimer/{id}', 'car.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
@@ -137,4 +149,3 @@ class CarsController extends AbstractController
         return $this->redirectToRoute('car.index');
     }
 }
-

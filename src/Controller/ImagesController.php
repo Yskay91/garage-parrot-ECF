@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ImagesController extends AbstractController
 {
@@ -22,6 +23,7 @@ class ImagesController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images', name: 'images.index')]
     public function index(ImagesRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -43,6 +45,7 @@ class ImagesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images/ajouter', name: 'images.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -82,6 +85,7 @@ class ImagesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images/modifier/{id}', 'images.edit', methods: ['GET', 'POST'])]
     public function edit(
         Images $images,
@@ -119,6 +123,7 @@ class ImagesController extends AbstractController
      * @param Images $images
      * @return Response
      */
+    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images/supprimer/{id}', name: 'images.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,

@@ -14,10 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin.index')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
 
@@ -33,12 +35,19 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fas fa-home');
+        yield MenuItem::linkToUrl('Voir le site public', 'fas fa-globe', '/');
+        yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+        yield MenuItem::linkToUrl('Modifier un mot de passe', 'fas fa-lock', '/liste-employes');
+        yield MenuItem::section('Gestion du garage');
         yield MenuItem::linkToCrud('Annonces', 'fas fa-car', Cars::class);
         yield MenuItem::linkToCrud('Services', 'fas fa-wrench', Services::class);
+        yield MenuItem::linkToCrud('Coordonnées', 'fas fa-address-book', Garage::class);
+        yield MenuItem::section('Contact/avis');
         yield MenuItem::linkToCrud('Demande de contact', 'fas fa-envelope', Messages::class);
         yield MenuItem::linkToCrud('Avis', 'fas fa-star', Reviews::class);
-        yield MenuItem::linkToCrud('Coordonnées', 'fas fa-address-book', Garage::class);
+        yield MenuItem::section('');
+        yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-xmark');
     }
 }
