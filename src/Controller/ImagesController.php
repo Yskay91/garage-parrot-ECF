@@ -23,10 +23,14 @@ class ImagesController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images', name: 'images.index')]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function index(ImagesRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $images = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -45,12 +49,17 @@ class ImagesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images/ajouter', name: 'images.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $image = new Images;
 
         $form = $this->createForm(ImagesType::class, $image);
@@ -85,13 +94,17 @@ class ImagesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images/modifier/{id}', 'images.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function edit(
         Images $images,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
 
         $form = $this->createForm(ImagesType::class, $images);
 
@@ -123,12 +136,17 @@ class ImagesController extends AbstractController
      * @param Images $images
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/images/supprimer/{id}', name: 'images.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function delete(
         EntityManagerInterface $manager,
         Images $images
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $manager->remove($images);
         $manager->flush();
 

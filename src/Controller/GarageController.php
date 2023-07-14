@@ -15,7 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class GarageController extends AbstractController
 {
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/garage', name: 'garage.index')]
     public function index(GarageRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {

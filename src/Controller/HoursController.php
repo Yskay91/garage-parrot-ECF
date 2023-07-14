@@ -36,12 +36,17 @@ class HoursController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/horaire/ajouter', name: 'hours.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $hour = new Hours;
         
         $form = $this->createForm(HoursType::class, $hour);
@@ -69,11 +74,17 @@ class HoursController extends AbstractController
     }
 
     #[Route('/horaire/modifier/{id}', 'hours.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         Hours $hour,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
 
         $form = $this->createForm(HoursType::class, $hour);
 
@@ -99,10 +110,16 @@ class HoursController extends AbstractController
     }
 
     #[Route('/horaire/supprimer/{id}', 'hours.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Hours $hour
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $manager->remove($hour);
         $manager->flush();
 

@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route('/connexion', name: 'security.login', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('pages/security/login.html.twig', [
@@ -25,6 +26,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/deconnexion', name: 'security.logout')]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function logout()
     {
         //rien à mettre ici, symfony le gére tout seul

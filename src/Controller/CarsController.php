@@ -59,6 +59,11 @@ class CarsController extends AbstractController
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $car = new Cars(); //création d'une nouvelle car
 
         $form = $this->createForm(CarsType::class, $car);
@@ -99,6 +104,11 @@ class CarsController extends AbstractController
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $form = $this->createForm(CarsType::class, $car);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -138,6 +148,11 @@ class CarsController extends AbstractController
         EntityManagerInterface $manager,
         Cars $car
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $manager->remove($car);
         $manager->flush();
 

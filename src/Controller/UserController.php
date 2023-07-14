@@ -36,6 +36,7 @@ class UserController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('security.login');
         }
+
         $users = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -106,6 +107,10 @@ class UserController extends AbstractController
         EntityManagerInterface $manager,
         User $user
     ): Response {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $manager->remove($user);
         $manager->flush();
 
