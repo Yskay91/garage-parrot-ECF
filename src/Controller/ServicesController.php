@@ -24,8 +24,14 @@ class ServicesController extends AbstractController
      * @return Response
      */
     #[Route('/services', name: 'services.index')]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function index(ServicesRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $services = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -44,12 +50,17 @@ class ServicesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/services/ajouter', name: 'services.new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $service = new Services;
 
         $form = $this->createForm(ServicesType::class, $service);
@@ -84,13 +95,17 @@ class ServicesController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/services/modifier/{id}', 'services.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function edit(
         Services $services,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
 
         $form = $this->createForm(ServicesType::class, $services);
 
@@ -122,12 +137,17 @@ class ServicesController extends AbstractController
      * @param Services $services
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/services/supprimer/{id}', name: 'services.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Services $services
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $manager->remove($services);
         $manager->flush();
 

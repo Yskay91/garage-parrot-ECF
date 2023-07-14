@@ -25,10 +25,18 @@ class MessagesController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/messages', name: 'messages.index')]
-    public function index(MessagesRepository $repository, PaginatorInterface $paginator, Request $request): Response
-    {
+    #[IsGranted('ROLE_ADMIN')]
+    public function index(
+        MessagesRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $messages = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -138,12 +146,17 @@ class MessagesController extends AbstractController
      * @param Services $services
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/messages/supprimer/{id}', name: 'messages.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Messages $messages
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+
         $manager->remove($messages);
         $manager->flush();
 

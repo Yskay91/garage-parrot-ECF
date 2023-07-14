@@ -25,10 +25,17 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[Route('/liste-employes', name: 'user.index', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/liste-employes', name: 'user.index', methods: ['GET'])]
-    public function showListeEmploye(UserRepository $repository, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function showListeEmploye(
+        UserRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
         $users = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -49,8 +56,8 @@ class UserController extends AbstractController
      * @param UserPasswordHasherInterface $hasher
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/employe/modifier/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         User $user,
         Request $request,
@@ -93,8 +100,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/employe/supprimer/{id}', name: 'user.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         User $user
@@ -117,8 +124,8 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/employe/modifier-mot-de-passe/{id}', name: 'user.edit.password', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function editPassword(
         User $user,
         Request $request,

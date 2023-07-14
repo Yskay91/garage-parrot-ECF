@@ -83,13 +83,17 @@ class ReviewsController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/avis/modifier/{id}', 'reviews.edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_EMPLOYE')]
     public function edit(
         Reviews $reviews,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
 
         $form = $this->createForm(ReviewsType::class, $reviews);
 
@@ -121,12 +125,17 @@ class ReviewsController extends AbstractController
      * @param Reviews $reviews
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/avis/supprimer/{id}', name: 'reviews.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Reviews $reviews
     ): Response {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security.login');
+        }
+        
         $manager->remove($reviews);
         $manager->flush();
 

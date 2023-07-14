@@ -12,6 +12,11 @@
 					<p class="titreAccueil fs-4">Un garage familiale au service de ses clients</p>
 				</div>
 			</div>
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success mt-4">
+					{{ message }}
+				</div>
+			{% endfor %}
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 col-md-12 text-center">
@@ -78,8 +83,8 @@
 												</svg>
 											{% endfor %}
 										</div>
-										
-										{% elseif review.notes <= 3 and review.notes > 2 %}
+
+									{% elseif review.notes <= 3 and review.notes > 2 %}
 										<div class="card-footer bg-warning">
 											{% for i in 1..review.notes %}
 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewbox="0 0 16 16">
@@ -87,7 +92,7 @@
 												</svg>
 											{% endfor %}
 										</div>
-										{% else %}
+									{% else %}
 										<div class="card-footer bg-danger">
 											{% for i in 1..review.notes %}
 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewbox="0 0 16 16">
@@ -95,9 +100,8 @@
 												</svg>
 											{% endfor %}
 										</div>
-										
-									{% endif %}
 
+									{% endif %}
 								</div>
 							</div>
 						{% endif %}
