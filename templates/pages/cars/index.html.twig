@@ -27,9 +27,26 @@
 							{{ car.brand|upper }}
 							{{ car.model|upper }}
 						</div>
-						{% for image in car.getImages() %}
-							<img src="{{ vich_uploader_asset(image, 'imageFile') }}" id="imageVoiture{{ car.id }}" class="card-img-top" alt="imageVoiture{{ car.id }}">
-						{% endfor %}
+						<div id="carouselCar" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								{% for image in car.getImages() %}
+									<div class="carousel-item {% if loop.first %}active{% endif %}">
+										<img src="{{ vich_uploader_asset(image, 'imageFile') }}" id="imageVoiture{{ car.id }}" class="d-block w-100" alt="imageVoiture{{ car.id }}">
+									</div>
+								{% endfor %}
+							</div>
+							<a class="carousel-control-prev" href="#carouselCar" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">Précédent</span>
+							</a>
+							<a class="carousel-control-next" href="#carouselCar" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">Suivant</span>
+							</a>
+						</div>
+
+						{# <img src="{{ asset('/images/voitureOccasion/' ~ car.images[0].imageName) }}" id="imageVoiture{{ car.id }}" class="card-img-top" alt="{{ car.brand ~ ' ' ~ car.model }}"> #}
+
 						<div class="card-body">
 							<p class="card-text">
 								<b>Année :</b>
@@ -38,7 +55,7 @@
 								{{ car.kilometre|number_format(0, ',', '\'') }}<br>
           <b>Prix :</b> {{ car.price|number_format(0, ',', '\'') }}€<br>
 								<b>Caractéristiques :</b>
-								{{ car.features }}
+								{{ car.features|raw }}
 							</p>
 							<br>
 							<!-- Button trigger modal -->
@@ -52,7 +69,8 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="modal{{ car.id }}Label">{{ car.brand }} {{ car.model }}</h5>
+								<h5 class="modal-title" id="modal{{ car.id }}Label">{{ car.brand }}
+									{{ car.model }}</h5>
 							</div>
 							<div class="modal-body">
 								<form action="{{ path('messages.modal') }}" method="post">
