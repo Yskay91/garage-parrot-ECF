@@ -125,4 +125,16 @@ class Images
 
         return $this;
     }
+
+    public function getCar(): ?Cars
+    {
+        return $this->car;
+    }
+
+    public function setCar(?Cars $car): static
+    {
+        $this->car = $car;
+
+        return $this;
+    }
 }

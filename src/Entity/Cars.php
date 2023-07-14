@@ -50,9 +50,8 @@ class Cars
     #[ORM\Column(length: 255)]
     private ?string $features = null;
 
-    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $images;
-
 
     public function __construct()
     {
@@ -149,7 +148,8 @@ class Cars
         return $this;
     }
 
-    public function getFullname(): ?string {
+    public function getFullname(): ?string
+    {
         return $this->brand . ' ' . $this->model . ' ' . $this->year;
     }
 

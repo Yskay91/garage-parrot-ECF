@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Cars;
-use App\Form\UsersType;
 use App\Form\ImagesType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
