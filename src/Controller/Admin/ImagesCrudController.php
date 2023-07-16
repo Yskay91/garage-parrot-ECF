@@ -30,11 +30,11 @@ class ImagesCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('imageName'),
-            TextField::new('imageFile'),
-            DateTimeField::new('createdAt')
+            TextField::new('imageName', 'Nom de l\'iamge'),
+            TextField::new('imageFile', 'Fichier'),
+            DateTimeField::new('createdAt', 'Créée le')
                 ->hideOnForm(),
-            DateTimeField::new('updatedAt')
+            DateTimeField::new('updatedAt', 'Modifiée le')
                 ->hideOnForm()
         ];
     }

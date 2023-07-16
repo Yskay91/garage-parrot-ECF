@@ -30,10 +30,10 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('name'),
-            TextField::new('firstName'),
-            TextField::new('email'),
-            ArrayField::new('roles')
+            TextField::new('name', 'Nom'),
+            TextField::new('firstName', 'Prénom'),
+            TextField::new('email', 'Email'),
+            ArrayField::new('roles', 'Rôle')
         ];
     }
 }

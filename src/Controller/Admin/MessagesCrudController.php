@@ -31,13 +31,13 @@ class MessagesCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('nameCustomer'),
-            TextField::new('firstNameCustomer'),
-            TextField::new('email'),
-            TextField::new('telephone'),
-            TextField::new('subject'),
-            TextEditorField::new('message'),
-            DateTimeField::new('created_at')
+            TextField::new('nameCustomer', 'Nom'),
+            TextField::new('firstNameCustomer', 'Prénom'),
+            TextField::new('email', 'Email'),
+            TextField::new('telephone', 'Téléphone'),
+            TextField::new('subject', 'Sujet'),
+            TextEditorField::new('message', 'Message'),
+            DateTimeField::new('created_at', 'Créée le')
                 ->hideOnForm(),
         ];
     }

@@ -32,10 +32,10 @@ class ReviewsCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('name'),
-            TextareaField::new('comment'),
-            IntegerField::new('notes'),
-            BooleanField::new('is_approved')
+            TextField::new('name', 'Nom'),
+            TextareaField::new('comment', 'Commentaire'),
+            IntegerField::new('notes', 'Note'),
+            BooleanField::new('is_approved', 'Approuvé ?')
         ];
     }
 }

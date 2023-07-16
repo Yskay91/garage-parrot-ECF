@@ -29,12 +29,12 @@ class GarageCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('name'),
-            TextField::new('adresse'),
-            IntegerField::new('zipCode'),
-            TextField::new('city'),
-            TextField::new('phone'),
-            TextField::new('mail'),
+            TextField::new('name', 'Nom'),
+            TextField::new('adresse', 'Adresse'),
+            IntegerField::new('zipCode', 'Code postal'),
+            TextField::new('city', 'Ville'),
+            TextField::new('phone', 'Téléphone'),
+            TextField::new('mail', 'Email'),
         ];
     }
 }

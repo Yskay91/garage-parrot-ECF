@@ -31,11 +31,11 @@ class ServicesCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('name'),
-            TextEditorField::new('description'),
-            BooleanField::new('is_actif'),
-            IntegerField::new('price'),
-            TextField::new('category'),
+            TextField::new('name', 'Nom'),
+            TextEditorField::new('description', 'description'),
+            BooleanField::new('is_actif', 'Est actif ?'),
+            IntegerField::new('price', 'Prix'),
+            TextField::new('category', 'Catégorie'),
         ];
     }
 }

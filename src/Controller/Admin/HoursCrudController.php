@@ -7,7 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class HoursCrudController extends AbstractCrudController
@@ -30,11 +30,11 @@ class HoursCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('dayWeek'),
-            DateTimeField::new('morning_open_hours'),
-            DateTimeField::new('morning_close_hours'),
-            DateTimeField::new('afternoon_open_hours'),
-            DateTimeField::new('afternoon_close_hours'),
+            TextField::new('dayWeek', 'Jour de la semaine'),
+            TimeField::new('morning_open_hours', 'Horaire du matin'),
+            TimeField::new('morning_close_hours', 'Horaire du matin'),
+            TimeField::new('afternoon_open_hours', 'Horaire de l\'après-midi'),
+            TimeField::new('afternoon_close_hours', 'Horaire de l\'après-midi'),
             BooleanField::new('is_open')->setColumns(2),
         ];
     }

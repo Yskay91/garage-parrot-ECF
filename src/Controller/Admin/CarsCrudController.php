@@ -37,16 +37,16 @@ class CarsCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('brand'),
-            TextField::new('model'),
-            TextareaField::new('features')
+            TextField::new('brand', 'Marque'),
+            TextField::new('model', 'Modèle'),
+            TextareaField::new('features', 'Caractéristiques')
                 ->setFormType(CKEditorType::class),
-            IntegerField::new('kilometre'),
-            IntegerField::new('year'),
-            IntegerField::new('price'),
-            DateTimeField::new('created_at')
+            IntegerField::new('kilometre', 'Kilomètre'),
+            IntegerField::new('year', 'Année de mise en circulation'),
+            IntegerField::new('price', 'Prix'),
+            DateTimeField::new('created_at', 'Créée le')
                 ->hideOnForm(),
-            CollectionField::new('images')
+            CollectionField::new('images', 'Images')
                 ->setEntryType(ImagesType::class)
         ];
     }
