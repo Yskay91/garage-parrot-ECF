@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ServicesController extends AbstractController
 {
@@ -24,14 +23,8 @@ class ServicesController extends AbstractController
      * @return Response
      */
     #[Route('/services', name: 'services.index')]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function index(ServicesRepository $repository, PaginatorInterface $paginator, Request $request): Response
-    {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
+    {   
         $services = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -51,15 +44,10 @@ class ServicesController extends AbstractController
      * @return Response
      */
     #[Route('/services/ajouter', name: 'services.new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
 
         $service = new Services;
 
@@ -96,17 +84,11 @@ class ServicesController extends AbstractController
      * @return Response
      */
     #[Route('/services/modifier/{id}', 'services.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function edit(
         Services $services,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $form = $this->createForm(ServicesType::class, $services);
 
         $form->handleRequest($request);
@@ -138,16 +120,10 @@ class ServicesController extends AbstractController
      * @return Response
      */
     #[Route('/services/supprimer/{id}', name: 'services.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Services $services
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $manager->remove($services);
         $manager->flush();
 

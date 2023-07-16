@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class HoursController extends AbstractController
 {
@@ -37,16 +36,10 @@ class HoursController extends AbstractController
      * @return Response
      */
     #[Route('/horaire/ajouter', name: 'hours.new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
         $hour = new Hours;
         
         $form = $this->createForm(HoursType::class, $hour);
@@ -74,17 +67,11 @@ class HoursController extends AbstractController
     }
 
     #[Route('/horaire/modifier/{id}', 'hours.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         Hours $hour,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
 
         $form = $this->createForm(HoursType::class, $hour);
 
@@ -110,16 +97,10 @@ class HoursController extends AbstractController
     }
 
     #[Route('/horaire/supprimer/{id}', 'hours.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Hours $hour
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
         $manager->remove($hour);
         $manager->flush();
 

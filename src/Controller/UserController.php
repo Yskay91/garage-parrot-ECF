@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserController extends AbstractController
 {
@@ -26,16 +25,11 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/liste-employes', name: 'user.index', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function showListeEmploye(
         UserRepository $repository,
         PaginatorInterface $paginator,
         Request $request
     ): Response {
-        
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
 
         $users = $paginator->paginate(
             $repository->findAll(),
@@ -58,7 +52,6 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/employe/modifier/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         User $user,
         Request $request,
@@ -66,50 +59,46 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $hasher
     ): Response {
 
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
-        $form = $this->createForm(UsersType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            if ($hasher->isPasswordValid($user, $form->getData()->getPlainPassword())) {
-                $user = $form->getData();
-
-                $manager->persist($user); //comme un commit sur git
-                $manager->flush(); //Ajout en bdd - comme un push
-
-                $this->addFlash(
-                    'success',
-                    'L\'utilisateur a bien été modifié'
-                );
-
-                return $this->redirectToRoute('car.index');
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'Le mot de passe n\'est pas correct'
-                );
+            if (!$this->getUser()) {
+                return $this->redirectToRoute('security.login');
             }
-        }
 
-        return $this->render('pages/user/edit.html.twig', [
-            'form' => $form->createView()
-        ]);
+            $form = $this->createForm(UsersType::class, $user);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                if ($hasher->isPasswordValid($user, $form->getData()->getPlainPassword())) {
+                    $user = $form->getData();
+
+                    $manager->persist($user); //comme un commit sur git
+                    $manager->flush(); //Ajout en bdd - comme un push
+
+                    $this->addFlash(
+                        'success',
+                        'L\'utilisateur a bien été modifié'
+                    );
+
+                    return $this->redirectToRoute('car.index');
+                } else {
+                    $this->addFlash(
+                        'warning',
+                        'Le mot de passe n\'est pas correct'
+                    );
+                }
+            }
+
+            return $this->render('pages/user/edit.html.twig', [
+                'form' => $form->createView()
+            ]);
     }
 
     #[Route('/employe/supprimer/{id}', name: 'user.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         User $user
     ): Response {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
 
         $manager->remove($user);
         $manager->flush();
@@ -130,17 +119,12 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/employe/modifier-mot-de-passe/{id}', name: 'user.edit.password', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function editPassword(
         User $user,
         Request $request,
         UserPasswordHasherInterface $hasher,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
 
         $form = $this->createForm(EditPasswordType::class);
 

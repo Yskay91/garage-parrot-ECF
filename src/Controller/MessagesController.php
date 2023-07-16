@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class MessagesController extends AbstractController
 {
@@ -26,17 +25,11 @@ class MessagesController extends AbstractController
      * @return Response
      */
     #[Route('/messages', name: 'messages.index')]
-    #[IsGranted('ROLE_ADMIN')]
     public function index(
         MessagesRepository $repository,
         PaginatorInterface $paginator,
         Request $request
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $messages = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -147,16 +140,10 @@ class MessagesController extends AbstractController
      * @return Response
      */
     #[Route('/messages/supprimer/{id}', name: 'messages.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         Messages $messages
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $manager->remove($messages);
         $manager->flush();
 

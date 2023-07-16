@@ -32,7 +32,30 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/employe/supprimer/, roles: ROLE_ADMIN }
+        - { path: ^/services/supprimer/, roles: ROLE_ADMIN }
+        - { path: ^/avis/supprimer/, roles: ROLE_ADMIN }
+        - { path: ^/avis/modifier/, roles: ROLE_ADMIN }
+        - { path: ^/messages, roles: ROLE_ADMIN }
+        - { path: ^/messages/supprimer/, roles: ROLE_ADMIN }
+        - { path: ^/horaire/ajouter, roles: ROLE_ADMIN }
+        - { path: ^/horaire/modifier/, roles: ROLE_ADMIN }
+        - { path: ^/horaire/supprimer/, roles: ROLE_ADMIN }
+        - { path: ^/annonces/supprimer/, roles: ROLE_ADMIN }
+
+        - { path: ^/deconnexion, roles: ROLE_EMPLOYE }
+        - { path: ^/liste-employes, roles: ROLE_EMPLOYE }
+        - { path: ^/employe/modifier-mot-de-passe/, roles: ROLE_EMPLOYE }
+        - { path: ^/employe/modifier/, roles: ROLE_EMPLOYE }
+        - { path: ^/services, roles: ROLE_EMPLOYE }
+        - { path: ^/services/ajouter, roles: ROLE_EMPLOYE }
+        - { path: ^/services/modifier/, roles: ROLE_EMPLOYE }
+        - { path: ^/images, roles: ROLE_EMPLOYE }
+        - { path: ^/images/ajouter, roles: ROLE_EMPLOYE }
+        - { path: ^/images/modifier/, roles: ROLE_EMPLOYE }
+        - { path: ^/images/supprimer/, roles: ROLE_EMPLOYE }
+        - { path: ^/annonces/ajouter, roles: ROLE_EMPLOYE }
+        - { path: ^/annonces/modifier/, roles: ROLE_EMPLOYE }
     
     role_hierarchy:
         ROLE_ADMIN: ROLE_EMPLOYE

@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CarsController extends AbstractController
 {
@@ -53,17 +52,11 @@ class CarsController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[IsGranted('ROLE_EMPLOYE')]
     #[Route('/annonces/ajouter', name: 'car.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $car = new Cars(); //création d'une nouvelle car
 
         $form = $this->createForm(CarsType::class, $car);
@@ -97,18 +90,12 @@ class CarsController extends AbstractController
     /**
      * Modifie une annonce
      */
-    #[IsGranted('ROLE_EMPLOYE')]
-    #[Route('annonces/modifier/{id}', 'car.edit', methods: ['GET', 'POST'])]
+    #[Route('/annonces/modifier/{id}', 'car.edit', methods: ['GET', 'POST'])]
     public function edit(
         Cars $car,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
         $form = $this->createForm(CarsType::class, $car);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -142,17 +129,11 @@ class CarsController extends AbstractController
      * @param Car $car
      * @return Response
      */
-    #[IsGranted('ROLE_ADMIN')]
-    #[Route('annonces/supprimer/{id}', 'car.delete', methods: ['GET'])]
+    #[Route('/annonces/supprimer/{id}', 'car.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
         Cars $car
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
         $manager->remove($car);
         $manager->flush();
 

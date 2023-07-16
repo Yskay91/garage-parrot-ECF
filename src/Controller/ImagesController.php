@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ImagesController extends AbstractController
 {
@@ -24,13 +23,8 @@ class ImagesController extends AbstractController
      * @return Response
      */
     #[Route('/images', name: 'images.index')]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function index(ImagesRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $images = $paginator->paginate(
             $repository->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -50,16 +44,10 @@ class ImagesController extends AbstractController
      * @return Response
      */
     #[Route('/images/ajouter', name: 'images.new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $image = new Images;
 
         $form = $this->createForm(ImagesType::class, $image);
@@ -95,17 +83,11 @@ class ImagesController extends AbstractController
      * @return Response
      */
     #[Route('/images/modifier/{id}', 'images.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function edit(
         Images $images,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         $form = $this->createForm(ImagesType::class, $images);
 
         $form->handleRequest($request);
@@ -137,16 +119,10 @@ class ImagesController extends AbstractController
      * @return Response
      */
     #[Route('/images/supprimer/{id}', name: 'images.delete', methods: ['GET'])]
-    #[IsGranted('ROLE_EMPLOYE')]
     public function delete(
         EntityManagerInterface $manager,
         Images $images
     ): Response {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-        
         $manager->remove($images);
         $manager->flush();
 
