@@ -32,7 +32,7 @@ class UserController extends AbstractController
     ): Response {
 
         $users = $paginator->paginate(
-            $repository->findAll(),
+            $repository->findBy(['email' => $this->getUser()->getEmail()]),
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit par page*/
         );
@@ -147,7 +147,7 @@ class UserController extends AbstractController
                     'Le mot de passe a bien été modifié'
                 );
 
-                return $this->redirectToRoute('car.index');
+                return $this->redirectToRoute('user.index');
             } else {
                 $this->addFlash(
                     'warning',

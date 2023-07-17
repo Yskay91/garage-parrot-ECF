@@ -21,7 +21,7 @@ class EditPasswordType extends AbstractType
                     'attr' => [
                         'class' => 'form-control'
                     ],
-                    'label' => 'Mot de passe',
+                    'label' => 'Ancien mot de passe',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
@@ -30,7 +30,7 @@ class EditPasswordType extends AbstractType
                     'attr' => [
                         'class' => 'form-control'
                     ],
-                    'label' => 'Confirmer le mot de passe',
+                    'label' => 'Confirmer l\'ancien mot de passe',
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
