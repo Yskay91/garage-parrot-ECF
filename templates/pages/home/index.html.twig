@@ -26,6 +26,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- Services -->
 				<div class="row mb-5">
 					{% for service in services %}
 
@@ -37,7 +38,7 @@
 									</div>
 									<div class="card-body">
 										<h5 class="card-title">{{service.name}}</h5><br>
-										<p class="card-text">{{service.description}}</p>
+										<p class="card-text">{{service.description|raw}}</p>
 									</div>
 									<div class="card-footer text-muted">
 										Tarif : à partir de

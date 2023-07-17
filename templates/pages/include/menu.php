@@ -9,7 +9,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item ">
           <a class="nav-link" href="{{ path('home.index') }}">Accueil</a>
         </li>
         <li class="nav-item">
@@ -24,9 +24,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('messages.index') }}">Liste des messages</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('hours.index') }}">Horaires</a>
         </li>
         {% endif %}
         <li class="nav-item">
