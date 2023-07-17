@@ -29,6 +29,24 @@
 				</table>
 			</section>
 			<section class="col">
+				{% for garage in garage.getGarages %}
+					<div class="col-sm-12 text-center">
+						<address>
+							<strong>{{garage.name}}</strong><br/>
+							{{garage.adresse}}<br/>
+							{{garage.zipCode}}
+							{{garage.city}}<br/>
+						</address>
+
+						<address>
+							<strong>Mail et téléphone</strong><br/>
+							<a href="mailto:#">{{garage.mail}}</a><br/>
+							{{garage.phone}}
+						</address>
+					</div>
+				{% endfor %}
+			</section>
+			<section class="col">
 				&copy; Copyright 2023 Garage V. Parrot
 			</section>
 		</div>

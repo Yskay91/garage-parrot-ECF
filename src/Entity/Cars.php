@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Images;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CarsRepository;
 use Doctrine\Common\Collections\Collection;
@@ -47,16 +48,20 @@ class Cars
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $features = null;
 
     #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Messages::class)]
+    private Collection $messages;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,6 +182,36 @@ class Cars
             // set the owning side to null (unless already changed)
             if ($image->getCarId() === $this) {
                 $image->setCarId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Messages>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Messages $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Messages $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getCar() === $this) {
+                $message->setCar(null);
             }
         }
 

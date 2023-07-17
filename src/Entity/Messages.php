@@ -46,6 +46,9 @@ class Messages
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?Cars $car = null;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
@@ -136,6 +139,18 @@ class Messages
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCar(): ?Cars
+    {
+        return $this->car;
+    }
+
+    public function setCar(?Cars $car): static
+    {
+        $this->car = $car;
 
         return $this;
     }

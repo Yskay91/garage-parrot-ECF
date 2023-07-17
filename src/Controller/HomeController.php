@@ -35,7 +35,7 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[Route('/', name: 'home.index', methods: ['GET'])]
-    public function listeServices(ServicesRepository $repository, GarageRepository $repositoryGge, HoursRepository $repositoryHours, ReviewsRepository $repositoryReviews, PaginatorInterface $paginator, Request $request): Response
+    public function listeServices(ServicesRepository $repository, ReviewsRepository $repositoryReviews, PaginatorInterface $paginator, Request $request): Response
     {
         $services = $paginator->paginate(
             $repository->findAll(),
@@ -44,12 +44,10 @@ class HomeController extends AbstractController
         );
 
         $reviews = $repositoryReviews->findAll();
-        $hours = $repositoryHours->findAll();
 
         return $this->render('pages/home/index.html.twig', [
             'services' => $services,
             'reviews' => $reviews,
-            'hours' => $hours
         ]);
     }
 }

@@ -31,8 +31,7 @@ class CarsController extends AbstractController
     public function index(
         CarsRepository $repository,
         PaginatorInterface $paginator,
-        Request $request,
-        MailerInterface $mailer
+        Request $request
     ): Response {
         $cars = $paginator->paginate(
             $repository->findAll(),

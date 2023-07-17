@@ -91,47 +91,6 @@ class MessagesController extends AbstractController
         );
     }
 
-    #[Route('/annonces', name: 'messages.modal', methods: ['POST'])]
-    public function modal(
-        Request $request,
-        EntityManagerInterface $manager,
-        MailerInterface $mailer
-    ): Response {
-        $messageAnnonce = new Messages();
-
-        $form = $this->createForm(MessagesType::class, $messageAnnonce);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $messages = $form->getData();
-
-            $manager->persist($messages);
-            $manager->flush();
-
-            $email = (new Email())
-                ->from($messages->getEmail())
-                ->to('v.parrot@garage-parrot.fr')
-                ->subject($messages->getSubject())
-                ->html($messages->getMessage());
-
-            $mailer->send($email);
-
-            $this->addFlash(
-                'success',
-                'Le message a bien été envoyé. Vous recevrez une réponse dans les plus brefs délais.'
-            );
-
-            return $this->redirectToRoute('car.index');
-        }
-
-        return $this->render(
-            'pages/cars/index.html.twig',
-            ['form' => $form->createView()]
-        );
-    }
-
-
     /**
      * Cette fonction permet de supprimer un service
      *
@@ -153,5 +112,42 @@ class MessagesController extends AbstractController
         );
 
         return $this->redirectToRoute('messages.index');
+    }
+    /**
+     * Envoie d'un message depuis les annonces
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/annonces', name: 'car.messageCar', methods: ['POST'])]
+    public function carMessage(
+        Request $request,
+        EntityManagerInterface $manager,
+    ): Response {
+        $messageAnnonce = new Messages();
+
+        $formCarMessage = $this->createForm(MessagesType::class, $messageAnnonce);
+
+        $formCarMessage->handleRequest($request);
+
+        if ($formCarMessage->isSubmitted() && $formCarMessage->isValid()) {
+            $messages = $formCarMessage->getData();
+
+            $manager->persist($messages);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le message a bien été envoyé. Vous recevrez une réponse dans les plus brefs délais.'
+            );
+
+            return $this->redirectToRoute('car.index');
+        }
+
+        return $this->render(
+            'pages/cars/index.html.twig',
+            ['formCarMessage' => $formCarMessage->createView()]
+        );
     }
 }
