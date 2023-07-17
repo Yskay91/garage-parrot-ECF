@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Cars;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -13,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CarsType extends AbstractType
 {
@@ -50,18 +50,17 @@ class CarsType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('features', TextareaType::class, [
+            ->add('features', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'minlenght' => '2',
-                    'maxlenght' => '255'
+                    'minlenght' => '2'
                 ],
                 'label' => 'Caractéristiques',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 100]),
+                    new Assert\Length(['min' => 2]),
                     new Assert\NotBlank()
                 ]
             ])
@@ -105,13 +104,6 @@ class CarsType extends AbstractType
                     new Assert\Length(['min' => 4, 'max' => 4]),
                     new Assert\Positive()
                 ]
-            ])
-
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary mt-4'
-                ],
-                'label' => 'Ajouter'
             ]);
     }
 

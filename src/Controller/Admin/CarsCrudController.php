@@ -40,6 +40,7 @@ class CarsCrudController extends AbstractCrudController
             TextField::new('brand', 'Marque'),
             TextField::new('model', 'Modèle'),
             TextareaField::new('features', 'Caractéristiques')
+                ->hideOnIndex()
                 ->setFormType(CKEditorType::class),
             IntegerField::new('kilometre', 'Kilomètre'),
             IntegerField::new('year', 'Année de mise en circulation'),

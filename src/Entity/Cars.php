@@ -47,7 +47,7 @@ class Cars
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
     private ?string $features = null;
 
     #[ORM\OneToMany(mappedBy: 'car', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]
