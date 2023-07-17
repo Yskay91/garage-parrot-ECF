@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Reviews;
 use App\Form\ReviewsType;
+use App\Repository\HoursRepository;
 use App\Repository\GarageRepository;
 use App\Repository\ReviewsRepository;
 use App\Repository\ServicesRepository;
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    // #[Route('/', name: 'home.index', methods: ['GET'])] //ajout des méthodes pour sécurisé le site
+    // #[Route('/', name: 'home.index', methods: ['GET'])]
     // public function index(): Response
     // {
     //     return $this->render('pages/home/index.html.twig', [
@@ -34,7 +35,7 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[Route('/', name: 'home.index', methods: ['GET'])]
-    public function listeServices(ServicesRepository $repository, GarageRepository $repositoryGge, ReviewsRepository $repositoryReviews, PaginatorInterface $paginator, Request $request): Response
+    public function listeServices(ServicesRepository $repository, GarageRepository $repositoryGge, HoursRepository $repositoryHours, ReviewsRepository $repositoryReviews, PaginatorInterface $paginator, Request $request): Response
     {
         $services = $paginator->paginate(
             $repository->findAll(),
@@ -43,10 +44,12 @@ class HomeController extends AbstractController
         );
 
         $reviews = $repositoryReviews->findAll();
+        $hours = $repositoryHours->findAll();
 
         return $this->render('pages/home/index.html.twig', [
             'services' => $services,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'hours' => $hours
         ]);
     }
 }

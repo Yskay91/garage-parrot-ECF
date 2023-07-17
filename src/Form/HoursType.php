@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class HoursType extends AbstractType
@@ -24,47 +23,56 @@ class HoursType extends AbstractType
                 'class' => 'form-label mt-4'
             ]
         ])
-        ->add('morning_open_hours', TimeType::class, [
-            'input'  => 'datetime',
-            'label' => 'Heure d\'ouverture le matin',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ]
-        ])
-        ->add('morning_close_hours', TimeType::class, [
-            'input'  => 'datetime',
-            'label' => 'Heure de fermeture le matin',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ]
-        ])
-
-        ->add('afternoon_open_hours', TimeType::class, [
-            'input'  => 'datetime',
-            'label' => 'Heure d\'ouverture l\'après-midi',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ]
-        ])
-        ->add('afternoon_close_hours', TimeType::class, [
-            'input'  => 'datetime',
-            'label' => 'Heure de fermeture l\'après-midi',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ]
-        ])
-
-        ->add('is_open', CheckboxType::class, [
+        ->add('morning_open_hours', TextType::class, [
             'attr' => [
-                'class' => 'form-check-input mt-4'
+                'class' => 'form-control'
             ],
-            'label'    => 'indiqué comme fermé',
-            'required' => false,
+            'label' => 'Horaire d\'ouverture du matin',
             'label_attr' => [
-                'class' => 'form-check-label mt-4',
-                'value' => 'Oui'
+                'class' => 'form-label mt-4'
             ]
-        ]);
+        ])
+        ->add('morning_close_hours', TextType::class, [
+            'attr' => [
+                'class' => 'form-control'
+            ],
+            'label' => 'Horaire de fermeture du matin',
+            'label_attr' => [
+                'class' => 'form-label mt-4'
+            ]
+        ])
+
+        ->add('afternoon_open_hours', TextType::class, [
+            'attr' => [
+                'class' => 'form-control'
+            ],
+            'label' => 'Horaire d\'ouverture de l\'après-midi',
+            'label_attr' => [
+                'class' => 'form-label mt-4'
+            ]
+        ])
+        ->add('afternoon_close_hours', TextType::class, [
+            'attr' => [
+                'class' => 'form-control'
+            ],
+            'label' => 'Horaire de fermeture de l\'après-midi',
+            'label_attr' => [
+                'class' => 'form-label mt-4'
+            ]
+         ])
+
+        // ->add('is_open', CheckboxType::class, [
+        //     'attr' => [
+        //         'class' => 'form-check-input mt-4'
+        //     ],
+        //     'label'    => 'indiqué comme fermé',
+        //     'required' => false,
+        //     'label_attr' => [
+        //         'class' => 'form-check-label mt-4',
+        //         'value' => 'Oui'
+        //     ]
+        // ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\HoursRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,25 +14,33 @@ class Hours
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 10)]
-    #[Assert\Length(min: 5, max: 10)]
+    #[ORM\Column(length: 20)]
+    #[Assert\Length(min: 2, max: 20)]
     #[Assert\NotBlank()]
     private ?string $dayWeek = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $morning_open_hours = null;
+    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 20)]
+    private ?string $morning_open_hours = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $morning_close_hours = null;
+    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 20)]
+    private ?string $morning_close_hours = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $afternoon_open_hours = null;
+    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 20)]
+    private ?string $afternoon_open_hours = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $afternoon_close_hours = null;
+    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 5, max: 20)]
+    private ?string $afternoon_close_hours = null;
 
-    #[ORM\Column]
-    private ?bool $is_open = null;
+    // #[ORM\Column]
+    // private ?bool $is_open = null;
 
     public function getId(): ?int
     {
@@ -52,63 +59,63 @@ class Hours
         return $this;
     }
 
-    public function getMorningOpenHours(): ?\DateTimeInterface
+    public function getMorningOpenHours(): ?string
     {
         return $this->morning_open_hours;
     }
 
-    public function setMorningOpenHours(\DateTimeInterface $morning_open_hours): static
+    public function setMorningOpenHours(?string $morning_open_hours): self
     {
         $this->morning_open_hours = $morning_open_hours;
 
         return $this;
     }
 
-    public function getMorningCloseHours(): ?\DateTimeInterface
+    public function getMorningCloseHours(): ?string
     {
         return $this->morning_close_hours;
     }
 
-    public function setMorningCloseHours(\DateTimeInterface $morning_close_hours): static
+    public function setMorningCloseHours(?string $morning_close_hours): self
     {
         $this->morning_close_hours = $morning_close_hours;
 
         return $this;
     }
 
-    public function getAfternoonOpenHours(): ?\DateTimeInterface
+    public function getAfternoonOpenHours(): ?string
     {
         return $this->afternoon_open_hours;
     }
 
-    public function setAfternoonOpenHours(\DateTimeInterface $afternoon_open_hours): static
+    public function setAfternoonOpenHours(?string $afternoon_open_hours): self
     {
         $this->afternoon_open_hours = $afternoon_open_hours;
 
         return $this;
     }
 
-    public function getAfternoonCloseHours(): ?\DateTimeInterface
+    public function getAfternoonCloseHours(): ?string
     {
         return $this->afternoon_close_hours;
     }
 
-    public function setAfternoonCloseHours(\DateTimeInterface $afternoon_close_hours): static
+    public function setAfternoonCloseHours(?string $afternoon_close_hours): self
     {
         $this->afternoon_close_hours = $afternoon_close_hours;
 
         return $this;
     }
 
-    public function isIsOpen(): ?bool
-    {
-        return $this->is_open;
-    }
+    // public function isIsOpen(): ?bool
+    // {
+    //     return $this->is_open;
+    // }
 
-    public function setIsOpen(bool $is_open): static
-    {
-        $this->is_open = $is_open;
+    // public function setIsOpen(bool $is_open): static
+    // {
+    //     $this->is_open = $is_open;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
