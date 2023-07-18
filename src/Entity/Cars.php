@@ -31,7 +31,7 @@ class Cars
     #[ORM\Column]
     #[Assert\NotBlank]
     #[Assert\Positive()]
-    private ?float $price = null;
+    private ?int $price = null;
 
     #[ORM\Column]
     #[Assert\NotBlank]
@@ -93,12 +93,12 @@ class Cars
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): static
+    public function setPrice(int $price): static
     {
         $this->price = $price;
 

@@ -34,6 +34,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkToUrl('Voir le site public', 'fas fa-globe', '/');
         if($this->isGranted('ROLE_ADMIN')) {
             yield MenuItem::section('Gestion du garage');
             yield MenuItem::linkToCrud('Coordonnées', 'fas fa-address-book', Garage::class);
@@ -44,7 +45,6 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::linkToCrud('Avis', 'fas fa-star', Reviews::class);
         }
         yield MenuItem::linkToDashboard('Dashboard', 'fas fa-home');
-        yield MenuItem::linkToUrl('Voir le site public', 'fas fa-globe', '/');
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToUrl('Modifier un mot de passe', 'fas fa-lock', '/liste-employes');
         yield MenuItem::section('Gestion du garage');

@@ -18,6 +18,11 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ path('messages.new') }}">Contact</a>
         </li>
+        {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('admin.index') }}">Panneau d'administration</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>

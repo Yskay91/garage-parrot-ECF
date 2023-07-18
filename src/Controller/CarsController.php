@@ -4,18 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Cars;
 use App\Form\CarsType;
-use App\Entity\Messages;
-use App\Form\MessagesType;
-use App\Repository\MessagesRepository;
 use App\Repository\CarsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 class CarsController extends AbstractController
 {
@@ -33,16 +29,21 @@ class CarsController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
+
+        $maxPrice = $request->query->get('max_price');
+        $maxKilometre = $request->query->get('max_kilometre');
+
         $cars = $paginator->paginate(
-            $repository->findAll(),
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit par page*/
+            $repository->findFilteredCars($maxPrice, $maxKilometre),
+            $request->query->getInt('page', 1),
+            10
         );
 
         return $this->render('pages/cars/index.html.twig', [
             'cars' => $cars
         ]);
     }
+
 
     /**
      * Ajoute une annonce
@@ -143,4 +144,5 @@ class CarsController extends AbstractController
 
         return $this->redirectToRoute('car.index');
     }
+
 }

@@ -1,7 +1,3 @@
-
-console.log('coucou');
-
-
 $(document).ready(function () {
   $('.modal').modal();
   $('.modal').on('show.bs.modal', function (event) {

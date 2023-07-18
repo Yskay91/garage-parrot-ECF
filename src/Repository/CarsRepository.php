@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Cars;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Data\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Cars>
@@ -39,28 +40,28 @@ class CarsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Cars[] Returns an array of Cars objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findFilteredCars($maxPrice = null, $maxKilometre = null)
+    {
+        $qb = $this->createQueryBuilder('c');
 
-//    public function findOneBySomeField($value): ?Cars
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($maxPrice !== null) {
+            $qb->andWhere('c.price <= :maxPrice')
+               ->setParameter('maxPrice', $maxPrice);
+        }
+
+        if ($maxKilometre !== null) {
+            $qb->andWhere('c.kilometre <= :maxKilometre')
+               ->setParameter('maxKilometre', $maxKilometre);
+        }
+
+        $query = $qb->getQuery();
+        
+        // Si aucun filtre n'est spécifié, renvoyer toutes les voitures
+        if ($maxPrice === null && $maxKilometre === null) {
+            return $qb->getQuery()->getResult();
+        }
+
+        return $query->getResult();
+    }
+
 }
