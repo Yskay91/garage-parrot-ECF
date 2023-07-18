@@ -16,9 +16,6 @@ CREATE TABLE
         kilometre INT NOT NULL,
         year INT NOT NULL,
         created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-        id_brand INT NOT NULL,
-        id_user INT NOT NULL,
-        reference VARCHAR(100),
         PRIMARY KEY(id)
     );
 
