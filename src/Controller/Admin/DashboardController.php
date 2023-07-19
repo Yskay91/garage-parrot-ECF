@@ -40,14 +40,15 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::linkToCrud('Coordonnées', 'fas fa-address-book', Garage::class);
             yield MenuItem::linkToCrud('Horaire', 'fas fa-clock', Hours::class);
             yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+
             yield MenuItem::section('Contact/avis');
             yield MenuItem::linkToCrud('Demande de contact', 'fas fa-envelope', Messages::class);
             yield MenuItem::linkToCrud('Avis', 'fas fa-star', Reviews::class);
         }
-        yield MenuItem::linkToDashboard('Dashboard', 'fas fa-home');
+
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToUrl('Modifier un mot de passe', 'fas fa-lock', '/liste-employes');
-        yield MenuItem::section('Gestion du garage');
+        yield MenuItem::section('');
         yield MenuItem::linkToCrud('Annonces', 'fas fa-car', Cars::class);
         yield MenuItem::linkToCrud('Services', 'fas fa-wrench', Services::class);
         yield MenuItem::section('');
