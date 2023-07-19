@@ -82,7 +82,7 @@
 			{% for car in cars %}
 				<div class="mb-4 col-sm-6">
 					<div class="card cars-filter" data-price="{{ car.price }}" data-kilometre="{{ car.kilometre }}" data-year="{{ car.year }}">
-						<div class="card-header text-center ">
+						<div class="card-header text-center">
 							{{ car.brand|upper }}
 							{{ car.model|upper }}
 						</div>
@@ -106,13 +106,11 @@
 
 						<div class="card-body">
 							<p class="card-text">
+          						<p class="text-success"><b>Prix : {{ car.price|number_format(0, ',', '\'') }} €</b></p>
 								<b>Année :</b>
 								{{ car.year }}<br>
 								<b>Kilomètres :</b>
 								{{ car.kilometre|number_format(0, ',', '\'') }}<br>
-          						<b>Prix :</b> {{ car.price|number_format(0, ',', '\'') }}€<br>
-								<b>Caractéristiques :</b>
-								{{ car.features|raw }}
 							</p>
 						</div>
 						<div class="card-footer text-center">
