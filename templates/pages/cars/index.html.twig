@@ -19,114 +19,108 @@
 		</div>
 	{% endfor %}
 	<div class="row mb-4">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-6">
-			<div class="row mb-4">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<form id="filter-form" data-url="{{ path('car.index') }}" method="get">
-						<div class="row">
-							<h4 class="text-center">Prix</h4>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input type="number" id="price-min" name="price-min" class="form-control" placeholder="Prix minimum">
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input type="number" id="price-max" name="price-max" class="form-control" placeholder="Prix maximum">
-								</div>
+		<div class="col-sm-12">
+			<form id="filter-form" data-url="{{ path('car.index') }}" method="get">
+				<div class="row">
+					<div class="col-sm-6 mb-4">
+						<div class="col-sm-6">
+							<h5>Prix</h5>
+							<div class="form-group">
+								<input type="number" id="price-min" name="price-min" class="form-control form-control-sm" placeholder="Prix minimum">
 							</div>
 						</div>
-						<div class="row mt-4">
-							<h4 class="text-center">Année de mise en circulation</h4>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input type="number" id="year-min" name="year-min" class="form-control" placeholder="Année minimum">
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input type="number" id="year-max" name="year-max" class="form-control" placeholder="Année maximum">
-								</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="number" id="price-max" name="price-max" class="form-control form-control-sm" placeholder="Prix maximum">
 							</div>
 						</div>
-						<div class="row">
-							<h4 class="mt-4 text-center">Kilomètre</h4>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input type="number" id="kilometre-min" name="kilometre-min" class="form-control" placeholder="Kilomètres minimum">
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input type="number" id="kilometre-max" name="kilometre-max" class="form-control" placeholder="Kilomètres maximum">
-								</div>
+						<h5 class="mt-4">Année de mise en circulation</h5>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="number" id="year-min" name="year-min" class="form-control form-control-sm" placeholder="Année minimum">
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-12">
-								<button type="submit" class="btn btn-primary mt-4 w-100">Filtrer</button>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="number" id="year-max" name="year-max" class="form-control form-control-sm" placeholder="Année maximum">
 							</div>
 						</div>
-					</form>
-				</div>
-				<div class="col-sm-2"></div>
+					</div>
+					<div class="col-sm-6">
+						<h5>Kilomètre</h5>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="number" id="kilometre-min" name="kilometre-min" class="form-control form-control-sm" placeholder="Kilomètres minimum">
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="number" id="kilometre-max" name="kilometre-max" class="form-control form-control-sm" placeholder="Kilomètres maximum">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-4">
+							<button type="submit" class="btn btn-primary mt-3 w-100">Filtrer</button>
+						</div>
+						<div class="col-sm-4"></div>
+					</div>
+				</form>
 			</div>
-
 		</div>
-		<div class="col-sm-3"></div>
-	</div>
-	<div class="row mt-3">
-		{% if cars|length > 0 %}
-			{% for car in cars %}
-				<div class="mb-4 col-sm-6">
-					<div class="card cars-filter" data-price="{{ car.price }}" data-kilometre="{{ car.kilometre }}" data-year="{{ car.year }}">
-						<div class="card-header text-center">
-							{{ car.brand|upper }}
-							{{ car.model|upper }}
-						</div>
-						<div id="carouselCar{{car.id}}" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner">
-								{% for image in car.getImages() %}
-									<div class="carousel-item {% if loop.first %}active{% endif %}">
-										<img src="{{ vich_uploader_asset(image, 'imageFile') }}" id="imageVoiture{{ car.id }}" class="d-block w-100" alt="imageVoiture{{ car.id }}">
-									</div>
-								{% endfor %}
+		<div class="row mt-3">
+			{% if cars|length > 0 %}
+				{% for car in cars %}
+					<div class="mb-4 col-sm-6">
+						<div class="card cars-filter" data-price="{{ car.price }}" data-kilometre="{{ car.kilometre }}" data-year="{{ car.year }}">
+							<div class="card-header text-center">
+								{{ car.brand|upper }}
+								{{ car.model|upper }}
 							</div>
-							<a class="carousel-control-prev" href="#carouselCar{{car.id}}" role="button" data-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="sr-only">Précédent</span>
-							</a>
-							<a class="carousel-control-next" href="#carouselCar{{car.id}}" role="button" data-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="sr-only">Suivant</span>
-							</a>
-						</div>
+							<div id="carouselCar{{car.id}}" class="carousel slide" data-ride="carousel">
+								<div class="carousel-inner">
+									{% for image in car.getImages() %}
+										<div class="carousel-item {% if loop.first %}active{% endif %}">
+											<img src="{{ vich_uploader_asset(image, 'imageFile') }}" id="imageVoiture{{ car.id }}" class="d-block w-100" alt="imageVoiture{{ car.id }}">
+										</div>
+									{% endfor %}
+								</div>
+								<a class="carousel-control-prev" href="#carouselCar{{car.id}}" role="button" data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Précédent</span>
+								</a>
+								<a class="carousel-control-next" href="#carouselCar{{car.id}}" role="button" data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Suivant</span>
+								</a>
+							</div>
 
-						<div class="card-body">
-							<p class="card-text">
-          						<p class="text-success"><b>Prix : {{ car.price|number_format(0, ',', '\'') }} €</b></p>
+							<div class="card-body">
+								<p class="card-text"></p>
+								<p class="text-success">
+									<b>Prix :
+										{{ car.price|number_format(0, ',', '\'') }} €</b></p>
 								<b>Année :</b>
 								{{ car.year }}<br>
 								<b>Kilomètres :</b>
-								{{ car.kilometre|number_format(0, ',', '\'') }}<br>
-							</p>
-						</div>
-						<div class="card-footer text-center">
-							<a href="{{ path('car.details', {'id': car.id}) }}" class="btn btn-primary" role="button" aria-pressed="true">Voir plus de détails et contact</a>
+								{{ car.kilometre|number_format(0, ',', '\'') }}<br></p>
+								</p>
+							</div>
+							<div class="card-footer text-center">
+								<a href="{{ path('car.details', {'id': car.id}) }}" class="btn btn-primary" role="button" aria-pressed="true">Voir plus de détails et contact</a>
+							</div>
 						</div>
 					</div>
-				</div>
 
-			{% endfor %}
+				{% endfor %}
 
-			{# display navigation #}
-			<div class="navigation d-flex justify-content-center mt-4">{{ knp_pagination_render(cars) }}</div>
-		{% else %}
-			<p class="bold d-flex justify-content-center mt-4">Actuellement nous avons aucune voiture d'occasions disponible à la vente.</p>
-		{% endif %}
-	</div>
+				{# display navigation #}
+				<div class="navigation d-flex justify-content-center mt-4">{{ knp_pagination_render(cars) }}</div>
+			{% else %}
+				<p class="bold d-flex justify-content-center mt-4">Actuellement nous avons aucune voiture d'occasions disponible à la vente.</p>
+			{% endif %}
+		</div>
 
-	<script src="{{asset('js/filter.js')}}"></script>
-{% endblock %}
+		<script src="{{asset('js/filter.js')}}"></script>
+	{% endblock %}

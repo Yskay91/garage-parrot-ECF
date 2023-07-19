@@ -80,7 +80,7 @@ class UserController extends AbstractController
                         'L\'utilisateur a bien été modifié'
                     );
 
-                    return $this->redirectToRoute('car.index');
+                    return $this->redirectToRoute('user.index');
                 } else {
                     $this->addFlash(
                         'warning',
