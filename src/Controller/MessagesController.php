@@ -51,8 +51,7 @@ class MessagesController extends AbstractController
     #[Route('/contact', name: 'messages.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        EntityManagerInterface $manager,
-        MailerInterface $mailer
+        EntityManagerInterface $manager
     ): Response {
         $messages = new Messages();
 
@@ -66,14 +65,6 @@ class MessagesController extends AbstractController
             $manager->persist($messages); //identique à un commit
             $manager->flush(); //identique à un push
 
-            $email = (new Email())
-            ->from($messages->getEmail())
-            ->to('you@example.com')
-            ->subject($messages->getSubject())
-            ->html($messages->getMessage());
-
-            $mailer->send($email);
-
             $this->addFlash(
                 'success',
                 'Le message a bien été envoyé. Vous recevrez une réponse dans les plus brefs délais.'
@@ -85,7 +76,7 @@ class MessagesController extends AbstractController
         return $this->render(
             'pages/messages/new.html.twig',
             [
-                'form' => $form->createView(),
+                'contact_form' => $form->createView(),
                 'messages' => $messages,
             ]
         );

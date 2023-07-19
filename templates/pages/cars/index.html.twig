@@ -38,6 +38,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="row mt-4">
+							<h4 class="text-center">Année de mise en circulation</h4>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="number" id="year-min" name="year-min" class="form-control" placeholder="Année minimum">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<input type="number" id="year-max" name="year-max" class="form-control" placeholder="Année maximum">
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<h4 class="mt-4 text-center">Kilomètre</h4>
 							<div class="col-sm-6">
@@ -68,7 +81,7 @@
 		{% if cars|length > 0 %}
 			{% for car in cars %}
 				<div class="mb-4 col-sm-6">
-					<div class="card cars-filter" data-price="{{ car.price }}" data-kilometre="{{ car.kilometre }}">
+					<div class="card cars-filter" data-price="{{ car.price }}" data-kilometre="{{ car.kilometre }}" data-year="{{ car.year }}">
 						<div class="card-header text-center ">
 							{{ car.brand|upper }}
 							{{ car.model|upper }}
@@ -103,38 +116,11 @@
 							</p>
 						</div>
 						<div class="card-footer text-center">
-							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal{{ car.id }}" data-whatever="{{ car.id }} - {{ car.brand }} {{ car.model }}">Demander plus d'informations</button>
+							<a href="{{ path('car.details', {'id': car.id}) }}" class="btn btn-primary" role="button" aria-pressed="true">Voir plus de détails et contact</a>
 						</div>
 					</div>
 				</div>
 
-				<!-- Modal -->
-				<div class="modal fade" id="modal{{ car.id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ car.id }}Label" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="modal{{ car.id }}Label">{{ car.brand }}
-									{{ car.model }}</h5>
-							</div>
-							<div class="modal-body">
-								<form action="{{ path('car.messageCar') }}" method="post">
-									<div class="form-group">
-										<label for="recipient-name-{{ car.id }}" class="col-form-label">Sujet</label>
-										<input type="text" class="form-control" id="recipient-name-{{ car.id }}">
-									</div>
-									<div class="form-group">
-										<label for="message-text-{{ car.id }}" class="col-form-label">Message</label>
-										<textarea class="form-control" id="message-text-{{ car.id }}"></textarea>
-									</div>
-									<button type="submit" class="btn btn-primary mt-4">Send message</button>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
 			{% endfor %}
 
 			{# display navigation #}
@@ -143,4 +129,6 @@
 			<p class="bold d-flex justify-content-center mt-4">Actuellement nous avons aucune voiture d'occasions disponible à la vente.</p>
 		{% endif %}
 	</div>
+
+	<script src="{{asset('js/filter.js')}}"></script>
 {% endblock %}

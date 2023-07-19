@@ -7,7 +7,7 @@ USE garage_parrot;
 -- Création de la table voiture
 
 CREATE TABLE
-    IF NOT EXISTS car (
+    IF NOT EXISTS cars (
         id INT AUTO_INCREMENT,
         brand VARCHAR(100) NOT NULL,
         model VARCHAR(100) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE
         image_name VARCHAR(255) DEFAULT NULL,
         updated_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)',
         created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-        FOREIGN KEY (car_id) REFERENCES car(id),
+        FOREIGN KEY (car_id) REFERENCES cars(id),
         PRIMARY KEY(id)
     );
 

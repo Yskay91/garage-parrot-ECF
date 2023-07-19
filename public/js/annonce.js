@@ -1,10 +1,12 @@
-$(document).ready(function () {
-  $('.modal').modal();
-  $('.modal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Bouton qui déclenche la modal
-    var sujet = button.data('whatever'); // Extraire les informations des attributs data-*
-    var modal = $(this);
-    modal.find('.modal-title').text(sujet);
-    modal.find('.modal-body input').val('Demande d\'information concernant l\'annonce ' + sujet);
-  });
-});
+console.log('coucou');
+// Fonction pour préremplir le sujet du formulaire de contact
+function prefillContactFormSubject() {
+  var subjectField = document.getElementById('idCar');
+  var carName = "{{ carName }}"; // Récupérer la valeur de la variable carName
+  if (subjectField && carName) {
+  subjectField.value = 'Demande d\'information concernant l\'annonce ' + carName;
+  }
+  }
+  
+  // Appeler la fonction pour préremplir le sujet une fois que la page est chargée
+  window.onload = prefillContactFormSubject;

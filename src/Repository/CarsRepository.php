@@ -40,28 +40,4 @@ class CarsRepository extends ServiceEntityRepository
         }
     }
 
-    public function findFilteredCars($maxPrice = null, $maxKilometre = null)
-    {
-        $qb = $this->createQueryBuilder('c');
-
-        if ($maxPrice !== null) {
-            $qb->andWhere('c.price <= :maxPrice')
-               ->setParameter('maxPrice', $maxPrice);
-        }
-
-        if ($maxKilometre !== null) {
-            $qb->andWhere('c.kilometre <= :maxKilometre')
-               ->setParameter('maxKilometre', $maxKilometre);
-        }
-
-        $query = $qb->getQuery();
-        
-        // Si aucun filtre n'est spécifié, renvoyer toutes les voitures
-        if ($maxPrice === null && $maxKilometre === null) {
-            return $qb->getQuery()->getResult();
-        }
-
-        return $query->getResult();
-    }
-
 }

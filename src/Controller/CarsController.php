@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Cars;
-use App\Form\CarsType;
+use App\Entity\Messages;
+use App\Form\MessagesType;
 use App\Repository\CarsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -30,11 +31,8 @@ class CarsController extends AbstractController
         Request $request
     ): Response {
 
-        $maxPrice = $request->query->get('max_price');
-        $maxKilometre = $request->query->get('max_kilometre');
-
         $cars = $paginator->paginate(
-            $repository->findFilteredCars($maxPrice, $maxKilometre),
+            $repository->findAll(),
             $request->query->getInt('page', 1),
             10
         );
@@ -44,105 +42,38 @@ class CarsController extends AbstractController
         ]);
     }
 
-
-    /**
-     * Ajoute une annonce
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     */
-    #[Route('/annonces/ajouter', name: 'car.new', methods: ['GET', 'POST'])]
-    public function new(
-        Request $request,
-        EntityManagerInterface $manager
-    ): Response {
-        $car = new Cars(); //création d'une nouvelle car
-
-        $form = $this->createForm(CarsType::class, $car);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $car = $form->getData();
-
-            $manager->persist($car); //comme un commit sur git
-            $manager->flush(); //Ajout en bdd - comme un push
-
-            $this->addFlash(
-                'success',
-                'La voiture a bien été ajoutée'
-            );
-
-            return $this->redirectToRoute('car.index');
-        } else {
-            $this->addFlash(
-                'warning',
-                'il y a une erreur dans le formulaire'
-            );
-        }
-
-        return $this->render('pages/cars/new.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * Modifie une annonce
-     */
-    #[Route('/annonces/modifier/{id}', 'car.edit', methods: ['GET', 'POST'])]
-    public function edit(
-        Cars $car,
-        Request $request,
-        EntityManagerInterface $manager
-    ): Response {
-        $form = $this->createForm(CarsType::class, $car);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $car = $form->getData();
-
-            $manager->persist($car); //comme un commit sur git
-            $manager->flush(); //Ajout en bdd - comme un push
-
-            $this->addFlash(
-                'success',
-                'L\'annonce a bien été modifiée'
-            );
-
-            return $this->redirectToRoute('car.index');
-        } else {
-            $this->addFlash(
-                'warning',
-                'il y a une erreur dans le formulaire'
-            );
-        }
-
-        return $this->render('pages/cars/edit.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * Supprime une annonce
-     *
-     * @param EntityManagerInterface $manager
-     * @param Car $car
-     * @return Response
-     */
-    #[Route('/annonces/supprimer/{id}', 'car.delete', methods: ['GET'])]
-    public function delete(
+    #[Route('/annonce/{id}', name: 'car.details')]
+    public function carMessage(
+        int $id,
+        CarsRepository $repository,
         EntityManagerInterface $manager,
-        Cars $car
+        Request $request
     ): Response {
-        $manager->remove($car);
-        $manager->flush();
+        $messages = new Messages();
 
-        $this->addFlash(
-            'success',
-            'L\'annonce a bien été supprimée'
-        );
+        $carWithId = $repository->find($id);
+        $emailSubject = $carWithId->getFullname();
 
-        return $this->redirectToRoute('car.index');
+        $form = $this->createForm(MessagesType::class, $messages);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $messages = $form->getData();
+
+            $manager->persist($messages);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre message a été envoyé.'
+            );
+        }
+
+        return $this->render('pages/cars/car.html.twig', [
+            'car' => $carWithId,
+            'contact_form' => $form->createView(),
+        ]);
     }
 
 }

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gge Parrot - Voitures d'occasion
+{% endblock %}
+
+{% block body %}
+	<div class="text-center">
+		<div class="container-fluid py-5">
+			<h1 class="titrePages display-5 fw-bold">{{ car.brand|upper }}
+				{{ car.model|upper }}</h1>
+			<h4>De
+				{{ car.year }}</h4>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="mb-4 col-sm-2"></div>
+		<div class="mb-4 col-sm-8">
+			<div id="carouselCar{{car.id}}" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+					{% for image in car.getImages() %}
+						<div class="carousel-item {% if loop.first %}active{% endif %}">
+							<img src="{{ vich_uploader_asset(image, 'imageFile') }}" id="imageVoiture{{ car.id }}" class="d-block w-100" alt="imageVoiture{{ car.id }}">
+						</div>
+					{% endfor %}
+				</div>
+				<a class="carousel-control-prev" href="#carouselCar{{car.id}}" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Précédent</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselCar{{car.id}}" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Suivant</span>
+				</a>
+			</div>
+		</div>
+		<div class="mb-4 col-sm-2"></div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="mb-4 col-sm-5">
+			<h5>Caractéristiques</h5>
+			<hr/>
+			<p>
+				<b>Année de mise en circulation :</b>
+				{{ car.year }}<br>
+				<b>Kilomètres :</b>
+				{{ car.kilometre|number_format(0, ',', '\'') }}<br>
+          		<b>Prix :</b> {{ car.price|number_format(0, ',', '\'') }} €<br><br>
+				<b>Caractéristiques :</b>
+				{{ car.features|raw }}
+			</p>
+		</div>
+		<div class="mb-4 col-sm-1"></div>
+		<div class="mb-4 col-sm-6">
+			<h5>Demandez d'information supplémentaire sur ce véhicule en remplissant ce formulaire</h5>
+			<p>Ou appelez notre équipe par téléphone au:<a class="ms-2" href="tel://0450320000">04.50.32.00.00</a>
+			</p>
+			<hr/>
+			{% include 'pages/_formContact.html.twig' with {contact_form: contact_form} only %}
+		</div>
+	</div>
+{% endblock %}
