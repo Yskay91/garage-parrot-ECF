@@ -24,7 +24,7 @@ class ReviewsType extends AbstractType
                     'minlenght' => '2',
                     'maxlenght' => '100'
                 ],
-                'label' => 'Nom',
+                'label' => 'Nom, prénom',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
