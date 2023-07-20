@@ -43,15 +43,14 @@ class DashboardController extends AbstractDashboardController
 
             yield MenuItem::section('Contact/avis');
             yield MenuItem::linkToCrud('Demande de contact', 'fas fa-envelope', Messages::class);
-            yield MenuItem::linkToCrud('Avis', 'fas fa-star', Reviews::class);
         }
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToUrl('Modifier un mot de passe', 'fas fa-lock', '/liste-employes');
-        yield MenuItem::linkToUrl('Ajouter un avis', 'fas fa-star', '/avis/ajouter');
         yield MenuItem::section('');
         yield MenuItem::linkToCrud('Annonces', 'fas fa-car', Cars::class);
         yield MenuItem::linkToCrud('Services', 'fas fa-wrench', Services::class);
+        yield MenuItem::linkToCrud('Avis', 'fas fa-star', Reviews::class);
         yield MenuItem::section('');
         yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-xmark');
     }
