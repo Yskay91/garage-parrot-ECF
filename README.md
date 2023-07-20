@@ -1,5 +1,6 @@
 # Projet de gestion d'un garage - Garage Parrot
 ## Réalisé avec Symfony 6
+![Logo](https://garage-parrot.jessica-eisele.fr/images/logo.png)
 
 ![Symfony Version](https://img.shields.io/badge/Symfony-6.3-green)
 ![PHP Version](https://img.shields.io/badge/PHP-8.2-blue)
@@ -32,7 +33,7 @@ Ce projet est une application web de gestion de garage développée en utilisant
     - ```bash php bin/console doctrine:database:create```
     - ```bash php bin/console doctrine:migrations:migrate```
 6. Chargez les données de test grâce au fichier sql/insert.sql
-7. Lancer le serveur Symfony en utilisant la commande: symfony serve
+7. Lancer le serveur Symfony en utilisant la commande: ```bash symfony serve```
 8. Il ne reste plus qu'à aller sur votre navigateur préféré en utilisant le lien fourni par la commande précédente.
 
 ## Auteurs
