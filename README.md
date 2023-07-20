@@ -1,6 +1,8 @@
 # Projet de gestion d'un garage - Garage Parrot
-## Réalisé avec Symfony 6
+
 ![Logo](https://garage-parrot.jessica-eisele.fr/images/logo.png)
+
+## Développé avec Symfony 6.3
 
 ![Symfony Version](https://img.shields.io/badge/Symfony-6.3-green)
 ![PHP Version](https://img.shields.io/badge/PHP-8.2-blue)
