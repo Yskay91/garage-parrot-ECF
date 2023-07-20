@@ -23,6 +23,7 @@ Ce projet est une application web de gestion de garage développée en utilisant
 - Trello : https://trello.com/invite/b/1i7rmn0G/ATTIc44e8659b20fa03030ff10085994796282041631/garage-vparrot
 - Figma :
 https://www.figma.com/file/DVShv6ZaIOLahNMHDv5Bil/Garage-Parrot?type=design&node-id=0%3A1&mode=design&t=YW35ch1Ofk0kMLbd-1
+- Excalidraw : https://excalidraw.com/#json=xsMd39G6DL1RfBahC_dO0,074mON8Ebn0RAfTBiqXzcQ
 
 ## Prérequis
 
