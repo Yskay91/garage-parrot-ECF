@@ -15,14 +15,6 @@ VALUES
 
 
 -- *************************************************************************
--- Insertion dans la table utilisateur
-INSERT INTO user (name, first_name, email, role, password) 
-VALUES
-  ('Parrot', 'Vincent', 'v.parrot@garage-parrot.fr', ["ROLE_ADMIN"], 'password'),
-  ('Eisele', 'jessica', 'j.eisele@garage-parrot.fr', ["ROLE_EMPLOYE"], 'password');
-
-
--- *************************************************************************
 -- Insertion dans la table voiture
 INSERT INTO cars (brand, model, features, price, kilometre, year, created_at) 
 VALUES
