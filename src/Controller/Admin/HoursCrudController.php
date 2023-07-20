@@ -33,8 +33,7 @@ class HoursCrudController extends AbstractCrudController
             TextField::new('morning_open_hours', 'Horaire d\'ouverture matin'),
             TextField::new('morning_close_hours', 'Horaire de midi'),
             TextField::new('afternoon_open_hours', 'Horaire d\'ouverture après-midi'),
-            TextField::new('afternoon_close_hours', 'Horaire de fermeture soir'),
-            // BooleanField::new('is_open')->setColumns(2),
+            TextField::new('afternoon_close_hours', 'Horaire de fermeture soir')
         ];
     }
 }

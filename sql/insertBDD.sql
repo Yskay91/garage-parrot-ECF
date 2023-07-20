@@ -16,7 +16,7 @@ VALUES
 
 -- *************************************************************************
 -- Insertion dans la table utilisateur
-INSERT INTO user (name, firstName, email, role, password) 
+INSERT INTO user (name, first_name, email, role, password) 
 VALUES
   ('Parrot', 'Vincent', 'v.parrot@garage-parrot.fr', ["ROLE_ADMIN"], 'password'),
   ('Eisele', 'jessica', 'j.eisele@garage-parrot.fr', ["ROLE_EMPLOYE"], 'password');
@@ -24,7 +24,7 @@ VALUES
 
 -- *************************************************************************
 -- Insertion dans la table voiture
-INSERT INTO car (brand, model, features, price, kilometre, year, created_at) 
+INSERT INTO cars (brand, model, features, price, kilometre, year, created_at) 
 VALUES
   ('Seat', 'Leon', '5 portes, grand coffre de 350L, climatisation', 23999, 28000, 2017, NOW()),
   ('Seat', 'Ibiza', '5 portes, grand coffre de 350L, climatisation', 10499, 87000, 2016, NOW()),
@@ -63,7 +63,7 @@ VALUES (1, 'John Doe', 'Très bon service', 5, 1, 1, NOW()),
 
 INSERT INTO services (name, description, is_actif, price, category)
 VALUES ('Entretien de la carrosserie', 'Un impact ? Une rayure ? N\'attendez plus et venez le faire réparer chez nous. ça préviendra la rouille et autre problème.', 1, 50.00, 'Carrosserie'),
-       ('Brake Inspection', 'Check brake system and replace worn brake pads', 1, 80.00, 'Mécanique');
+       ('Entretien des freins', 'Vérifier le système de freinage et remplacer les plaquettes de frein usées', 1, 80.00, 'Mécanique');
 
 -- Insertion de données dans la table hours
 

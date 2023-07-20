@@ -113,11 +113,10 @@ CREATE TABLE
     IF NOT EXISTS hours (
         id INT AUTO_INCREMENT,
         dayWeek VARCHAR(20) NOT NULL,
-        morningOpenHours VARCHAR(2),
+        morningOpenHours VARCHAR(20),
         morningCloseHours VARCHAR(20),
         afternoonOpenHours VARCHAR(20),
         afternoonCloseHours VARCHAR(20),
         PRIMARY KEY(id)
-    );
-
+    )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
