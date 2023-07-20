@@ -17,6 +17,12 @@ Ce projet est une application web de gestion de garage développée en utilisant
 - Système d'authentification pour les utilisateurs avec rôles (administrateur et employé).
 - Interface d'administration pour gérer les annonces, les utilisateurs, les informations du garage etc...
 
+## Liens
+- Site en ligne : https://garage-parrot.jessica-eisele.fr
+- GitHub : https://github.com/Yskay91/garage-parrot-ECF.git
+- Trello : https://trello.com/invite/b/1i7rmn0G/ATTIc44e8659b20fa03030ff10085994796282041631/garage-vparrot
+- Figma :
+https://www.figma.com/file/DVShv6ZaIOLahNMHDv5Bil/Garage-Parrot?type=design&node-id=0%3A1&mode=design&t=YW35ch1Ofk0kMLbd-1
 
 ## Prérequis
 
