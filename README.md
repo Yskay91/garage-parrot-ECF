@@ -45,6 +45,10 @@ https://www.figma.com/file/DVShv6ZaIOLahNMHDv5Bil/Garage-Parrot?type=design&node
 7. Lancer le serveur Symfony en utilisant la commande: ```bash symfony serve```
 8. Il ne reste plus qu'à aller sur votre navigateur préféré en utilisant le lien fourni par la commande précédente.
 
+## Accès au panneau d'administration
+via le lien "page Admin" ou via le paramètre d'URL /admin
+identifiants de connexion : v.parrot@garage-parrot.fr, mot de passe : Password
+
 ## Création de l'employé administrateur
 Pour insérer l’administrateur comme premier employé, je suis passée par le formulaire d’inscription (RegistrationType.php, accessible avec le paramètre d’url /inscription).
 
